@@ -140,6 +140,10 @@ export default function StudentPage() {
           <Input
             isClearable
             className="w-full sm:max-w-[44%]"
+            classNames={{
+              input:
+                "text-small focus:outline-none border-transparent focus:border-transparent focus:ring-0",
+            }}
             placeholder="Search by name..."
             startContent={<SearchIcon />}
             value={filterValue}
