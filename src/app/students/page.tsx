@@ -1,89 +1,23 @@
 "use client";
 
 import React from "react";
-import { User, Chip, Tooltip, Input, ChipProps, Button } from "@heroui/react";
+import { Input, Button } from "@heroui/react";
 import { IdCard, User as UserIcon } from "lucide-react";
+
+import { columns, renderCell as setupRenderCell } from "./renderCell";
 
 import { subtitle } from "@/src/components/primitives";
 import Table from "@/src/components/Table";
-import {
-  DeleteIcon,
-  EditIcon,
-  SearchIcon,
-  PlusIcon,
-  MailIcon,
-} from "@/src/config/icons";
+import { PlusIcon, MailIcon } from "@/src/config/icons";
 import { User as IUser } from "@/src/types";
 import { Pagination } from "@/src/components/Pagination";
 import { users } from "@/src/lib/data";
 import { Modal } from "@/src/components/Modal";
-
-export const columns = [
-  { name: "NAME", uid: "name" },
-  { name: "ROLE", uid: "role" },
-  { name: "STATUS", uid: "status" },
-  { name: "ACTIONS", uid: "actions" },
-];
-
-const statusColorMap: Record<string, ChipProps["color"]> = {
-  active: "success",
-  paused: "danger",
-  vacation: "warning",
-};
+import { InputSearch } from "@/src/components/InputSearch";
 
 export default function StudentPage() {
   const renderCell = React.useCallback((user: IUser, columnKey: React.Key) => {
-    const cellValue = user[columnKey as keyof IUser];
-
-    switch (columnKey) {
-      case "name":
-        return (
-          <User
-            avatarProps={{ radius: "lg", src: user.avatar }}
-            description={user.email}
-            name={cellValue}
-          >
-            {user.email}
-          </User>
-        );
-      case "role":
-        return (
-          <div className="flex flex-col">
-            <p className="text-bold text-sm capitalize">{cellValue}</p>
-            <p className="text-bold text-sm capitalize text-default-400">
-              {user.team}
-            </p>
-          </div>
-        );
-      case "status":
-        return (
-          <Chip
-            className="capitalize"
-            color={statusColorMap[user.status]}
-            size="sm"
-            variant="flat"
-          >
-            {cellValue}
-          </Chip>
-        );
-      case "actions":
-        return (
-          <div className="relative flex items-center justify-end gap-2">
-            <Tooltip content="Edit user">
-              <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
-                <EditIcon />
-              </span>
-            </Tooltip>
-            <Tooltip color="danger" content="Delete user">
-              <span className="text-lg text-danger cursor-pointer active:opacity-50">
-                <DeleteIcon />
-              </span>
-            </Tooltip>
-          </div>
-        );
-      default:
-        return cellValue;
-    }
+    return setupRenderCell(user, columnKey);
   }, []);
 
   const addNew = (): void => {
@@ -146,18 +80,10 @@ export default function StudentPage() {
     return (
       <div className="flex flex-col gap-4">
         <div className="flex justify-between gap-3 flex-col sm:flex-row sm:items-end">
-          <Input
-            isClearable
-            className="w-full sm:max-w-[44%]"
-            classNames={{
-              input:
-                "text-small focus:outline-none border-transparent focus:border-transparent focus:ring-0",
-            }}
-            placeholder="Search by name..."
-            startContent={<SearchIcon />}
-            value={filterValue}
+          <InputSearch
+            filterValue={filterValue}
             onClear={onClear}
-            onValueChange={onSearchChange}
+            onSearchChange={onSearchChange}
           />
           <div className="flex gap-3">
             <Button color="primary" endContent={<PlusIcon />} onPress={addNew}>
