@@ -30,22 +30,6 @@ export default function StudentPage() {
   const [isLoading, setIsLoading] = React.useState(true);
   const [isModalOpen, setIsModalOpen] = React.useState<boolean>(false);
 
-  const hasSearchFilter = Boolean(filterValue);
-  const rowsPerPage = 4;
-
-  // Filtra os itens antes da paginação
-  const filteredItems = React.useMemo(() => {
-    let filteredUsers = [...studentsData];
-
-    if (hasSearchFilter) {
-      filteredUsers = filteredUsers.filter((user) =>
-        user.name.toLowerCase().includes(filterValue.toLowerCase()),
-      );
-    }
-
-    return filteredUsers;
-  }, [studentsData, filterValue]);
-
   // Simulação de carga de dados (por exemplo, de uma API)
   React.useEffect(() => {
     setTimeout(() => {
@@ -53,19 +37,6 @@ export default function StudentPage() {
       setIsLoading(false);
     }, 400);
   }, []);
-
-  // Atualiza a paginação sempre que os itens filtrados mudam
-  React.useEffect(() => {
-    if (filteredItems.length > 0) {
-      setPaginatedData(filteredItems.slice(0, rowsPerPage));
-    } else {
-      setPaginatedData([]);
-    }
-  }, [filteredItems, rowsPerPage]);
-
-  const onPaginate = (itemsPaginated: any[]): void => {
-    setPaginatedData(itemsPaginated);
-  };
 
   const onSearchChange = React.useCallback((value?: string) => {
     setFilterValue(value ?? "");
@@ -109,9 +80,12 @@ export default function StudentPage() {
             topContent={topContentTable}
           >
             <Pagination
-              data={filteredItems}
-              rowsPerPage={rowsPerPage}
-              onPaginate={onPaginate}
+              data={studentsData}
+              // data={filteredItems}
+              filterValue={filterValue}
+              rowsPerPage={4}
+              onPaginate={setPaginatedData}
+              // onPaginate={onPaginate}
             />
           </Table>
         )}
