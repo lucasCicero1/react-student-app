@@ -8,11 +8,14 @@
 ### Hooks
 * React.useMemo = React Hook que faz cache de resultados entre "re-renders"
   - é como se fosse o watch do vue
+  - É executado durante a renderização.
+  - Retorna um valor memoizado.
 
 * React.useCallback = React Hook que deixa fazer cache de uma função entre "re-renders"
 
 * React.useEffect é como se fosse o watch do vue
   - É executado após a renderização do componente
+  - Não retorna valor (só executa código).
 
 
 

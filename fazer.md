@@ -4,4 +4,6 @@
 
 ### Só exibir o componente de paginação se tiver data para paginar
 
+### Filtrar os itens por vários campos
+
 ### Tela de Login / Cadastro
