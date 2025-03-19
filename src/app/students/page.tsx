@@ -1,14 +1,14 @@
 "use client";
 
 import React from "react";
-import { Input, Button } from "@heroui/react";
-import { IdCard, User as UserIcon } from "lucide-react";
+import { Button } from "@heroui/react";
 
 import { columns, renderCell as setupRenderCell } from "./renderCell";
+import { modalBody } from "./modalBody";
 
 import { subtitle } from "@/src/components/primitives";
 import Table from "@/src/components/Table";
-import { PlusIcon, MailIcon } from "@/src/config/icons";
+import { PlusIcon } from "@/src/config/icons";
 import { User as IUser } from "@/src/types";
 import { Pagination } from "@/src/components/Pagination";
 import { users } from "@/src/lib/data";
@@ -94,47 +94,6 @@ export default function StudentPage() {
       </div>
     );
   }, [filterValue, onSearchChange, onClear, addNew]);
-
-  const modalBody = (
-    <div className="space-y-4">
-      <Input
-        classNames={{
-          input:
-            "text-small focus:outline-none border-transparent focus:border-transparent focus:ring-0 p-0",
-        }}
-        endContent={
-          <UserIcon className="text-2xl text-default-400 pointer-events-none flex-shrink-0" />
-        }
-        label="Name"
-        placeholder="Enter your name"
-        variant="bordered"
-      />
-      <Input
-        classNames={{
-          input:
-            "text-small focus:outline-none border-transparent focus:border-transparent focus:ring-0 p-0",
-        }}
-        endContent={
-          <MailIcon className="text-2xl text-default-400 pointer-events-none flex-shrink-0" />
-        }
-        label="Email"
-        placeholder="Enter your email"
-        variant="bordered"
-      />
-      <Input
-        classNames={{
-          input:
-            "text-small focus:outline-none border-transparent focus:border-transparent focus:ring-0 p-0",
-        }}
-        endContent={
-          <IdCard className="text-2xl text-default-400 pointer-events-none flex-shrink-0" />
-        }
-        label="CPF"
-        placeholder="Enter your cpf"
-        variant="bordered"
-      />
-    </div>
-  );
 
   return (
     <div>
