@@ -25,10 +25,13 @@ export default function StudentPage() {
   };
 
   const [studentsData, setStudentsData] = React.useState<IUser[]>([]);
+  const [filteredData, setFilteredData] = React.useState<IUser[]>([]);
   const [paginatedData, setPaginatedData] = React.useState<IUser[]>([]);
   const [filterValue, setFilterValue] = React.useState("");
   const [isLoading, setIsLoading] = React.useState(true);
   const [isModalOpen, setIsModalOpen] = React.useState<boolean>(false);
+
+  const searchFields = ["name", "role"] as const;
 
   // Simulação de carga de dados (por exemplo, de uma API)
   React.useEffect(() => {
@@ -37,6 +40,21 @@ export default function StudentPage() {
       setIsLoading(false);
     }, 400);
   }, []);
+
+  React.useEffect(() => {
+    const filtered = filterValue
+      ? studentsData.filter((user) =>
+          searchFields.some((field) =>
+            user[field]
+              .toString()
+              .toLowerCase()
+              .includes(filterValue.toLowerCase()),
+          ),
+        )
+      : studentsData;
+
+    setFilteredData(filtered);
+  }, [studentsData, filterValue]);
 
   const onSearchChange = React.useCallback((value?: string) => {
     setFilterValue(value ?? "");
@@ -80,6 +98,11 @@ export default function StudentPage() {
             topContent={topContentTable}
           >
             <Pagination
+              data={filteredData}
+              rowsPerPage={4}
+              onPaginate={setPaginatedData}
+            />
+            {/* <Pagination
               rowsPerPage={4}
               data={studentsData}
               // data={filteredItems}
@@ -87,7 +110,7 @@ export default function StudentPage() {
               onPaginate={setPaginatedData}
               // onPaginate={onPaginate}
               searchFields={["name", "role"]}
-            />
+            /> */}
           </Table>
         )}
         <Modal
