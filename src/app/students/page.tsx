@@ -103,15 +103,6 @@ export default function StudentPage() {
               rowsPerPage={4}
               onPaginate={setPaginatedData}
             />
-            {/* <Pagination
-              rowsPerPage={4}
-              data={studentsData}
-              // data={filteredItems}
-              filterValue={filterValue}
-              onPaginate={setPaginatedData}
-              // onPaginate={onPaginate}
-              searchFields={["name", "role"]}
-            /> */}
           </Table>
         )}
         <Modal
