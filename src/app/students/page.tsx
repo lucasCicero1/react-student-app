@@ -80,12 +80,13 @@ export default function StudentPage() {
             topContent={topContentTable}
           >
             <Pagination
+              rowsPerPage={4}
               data={studentsData}
               // data={filteredItems}
               filterValue={filterValue}
-              rowsPerPage={4}
               onPaginate={setPaginatedData}
               // onPaginate={onPaginate}
+              searchFields={["name", "role"]}
             />
           </Table>
         )}

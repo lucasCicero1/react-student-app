@@ -6,6 +6,7 @@ interface IPaginationProps {
   rowsPerPage: number;
   onPaginate: React.Dispatch<React.SetStateAction<any[]>>;
   filterValue: string;
+  searchFields?: string[];
 }
 
 export function Pagination({
@@ -13,14 +14,19 @@ export function Pagination({
   rowsPerPage = 10,
   onPaginate,
   filterValue,
+  searchFields,
 }: Readonly<IPaginationProps>) {
   const [page, setPage] = React.useState<number>(1);
   const [filteredData, setFilteredData] = React.useState<any[]>([]);
 
   React.useEffect(() => {
     const filtered = filterValue
-      ? data.filter((user) =>
-          user.name.toLowerCase().includes(filterValue.toLowerCase()),
+      ? data.filter(
+          (user) => user.name.toLowerCase().includes(filterValue.toLowerCase()),
+          // // nextjs-shadcnui-student-app
+          // searchFields.some((field) =>
+          //   user[field].toString().toLowerCase().includes(search.toLowerCase()),
+          // ),
         )
       : data;
 
