@@ -19,6 +19,10 @@
 
 
 
+### State
+* Quando o estado muda (setStudentsData([])), o componente é renderizado novamente.
+
+
 ### Tela Students (page.tsx)
 
 1- "studentsData" recebe os dados dos estudantes.

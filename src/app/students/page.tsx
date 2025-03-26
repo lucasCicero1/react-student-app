@@ -71,6 +71,7 @@ export default function StudentPage() {
         <div className="flex justify-between gap-3 flex-col sm:flex-row sm:items-end">
           <InputSearch
             filterValue={filterValue}
+            placeholder={"Search by name and role..."}
             onClear={onClear}
             onSearchChange={onSearchChange}
           />

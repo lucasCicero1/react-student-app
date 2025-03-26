@@ -6,12 +6,14 @@ interface IInputSearchProps {
   filterValue: string;
   onClear: () => void;
   onSearchChange: (value?: string) => void;
+  placeholder: string;
 }
 
 export function InputSearch({
   filterValue,
   onClear,
   onSearchChange,
+  placeholder = "Search...",
 }: Readonly<IInputSearchProps>) {
   return (
     <Input
@@ -21,7 +23,7 @@ export function InputSearch({
         input:
           "text-small focus:outline-none border-transparent focus:border-transparent focus:ring-0",
       }}
-      placeholder="Search by name..."
+      placeholder={placeholder}
       startContent={<SearchIcon />}
       value={filterValue}
       onClear={onClear}
