@@ -34,10 +34,10 @@ export function Modal({
             <ModalBody>{body}</ModalBody>
             <ModalFooter>
               <Button color="danger" variant="light" onPress={onClose}>
-                Close
+                Cancel
               </Button>
               <Button color="primary" onPress={onClose}>
-                Action
+                Save
               </Button>
             </ModalFooter>
           </>
