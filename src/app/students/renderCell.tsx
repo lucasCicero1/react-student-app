@@ -1,5 +1,5 @@
 import React from "react";
-import { User, Chip, Tooltip, ChipProps } from "@heroui/react";
+import { User, Chip, Tooltip, ChipProps, Button } from "@heroui/react";
 
 import { DeleteIcon, EditIcon } from "@/src/config/icons";
 import { User as IUser } from "@/src/types";
@@ -16,6 +16,8 @@ const statusColorMap: Record<string, ChipProps["color"]> = {
   paused: "danger",
   vacation: "warning",
 };
+
+const handleEdit = () => console.log("handleEdit");
 
 export const renderCell = (user: IUser, columnKey: React.Key) => {
   const cellValue = user[columnKey as keyof IUser];
@@ -56,7 +58,14 @@ export const renderCell = (user: IUser, columnKey: React.Key) => {
         <div className="relative flex items-center justify-end gap-2">
           <Tooltip content="Edit user">
             <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
-              <EditIcon />
+              <Button
+                isIconOnly
+                className="text-lg text-default-400 cursor-pointer active:opacity-50"
+                variant="light"
+                onPress={handleEdit}
+              >
+                <EditIcon />
+              </Button>
             </span>
           </Tooltip>
           <Tooltip color="danger" content="Delete user">
