@@ -15,7 +15,7 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="flex h-screen w-screen items-center justify-center scale-125">
+    <div className="flex h-screen w-screen items-center justify-center">
       <div className="flex w-full max-w-sm flex-col gap-4 rounded-large bg-content1 px-8 pb-10 pt-6 shadow-small">
         <div className="flex flex-col gap-1">
           <h1 className="text-large font-medium">Sign Up</h1>
