@@ -1,5 +1,4 @@
-import { Chart } from "../components/Chart";
-
+import { Chart } from "@/src/components/Chart";
 import { subtitle } from "@/src/components/primitives";
 import { quantityStudentsChartData } from "@/src/lib/data";
 
