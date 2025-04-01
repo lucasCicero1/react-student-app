@@ -3,9 +3,12 @@ import { Metadata, Viewport } from "next";
 import clsx from "clsx";
 import { Menu } from "lucide-react";
 import Link from "next/link";
+import { getServerSession } from "next-auth";
+import { redirect } from "next/navigation";
 
 import { Providers } from "../providers";
 
+import { nextAuthOptions } from "@/src/app/api/auth/[...nextauth]/route";
 import MenuComponent from "@/src/components/Menu";
 import { NavbarComponent } from "@/src/components/Navbar";
 import { siteConfig } from "@/src/config/site";
@@ -29,11 +32,17 @@ export const viewport: Viewport = {
   ],
 };
 
-export default function PrivateLayout({
+export default async function PrivateLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const session = await getServerSession(nextAuthOptions);
+
+  if (!session) {
+    redirect("/login");
+  }
+
   return (
     <div
       className={clsx(

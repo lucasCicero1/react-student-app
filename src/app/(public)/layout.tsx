@@ -1,7 +1,10 @@
 import "@/src/styles/globals.css";
 import { Metadata, Viewport } from "next";
 import clsx from "clsx";
+import { getServerSession } from "next-auth";
+import { redirect } from "next/navigation";
 
+import { nextAuthOptions } from "@/src/app/api/auth/[...nextauth]/route";
 import { siteConfig } from "@/src/config/site";
 import { fontSans } from "@/src/config/fonts";
 
@@ -23,11 +26,17 @@ export const viewport: Viewport = {
   ],
 };
 
-export default function PublicLayout({
+export default async function PublicLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const session = await getServerSession(nextAuthOptions);
+
+  if (session) {
+    redirect("/");
+  }
+
   return (
     <div
       className={clsx(
