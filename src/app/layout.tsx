@@ -4,6 +4,7 @@ import clsx from "clsx";
 
 import { Providers } from "./providers";
 
+import NextAuthSessionProvider from "@/src/providers/sessionProvider";
 import { siteConfig } from "@/src/config/site";
 import { fontSans } from "@/src/config/fonts";
 
@@ -39,9 +40,11 @@ export default function RootLayout({
           fontSans.variable,
         )}
       >
-        <Providers themeProps={{ attribute: "class", defaultTheme: "dark" }}>
-          <div className="h-screen flex">{children}</div>
-        </Providers>
+        <NextAuthSessionProvider>
+          <Providers themeProps={{ attribute: "class", defaultTheme: "dark" }}>
+            <div className="h-screen flex">{children}</div>
+          </Providers>
+        </NextAuthSessionProvider>
       </body>
     </html>
   );
