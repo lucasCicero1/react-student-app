@@ -9,8 +9,16 @@ import {
   DropdownTrigger,
 } from "@heroui/dropdown";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { signOut } from "next-auth/react";
 
-export function NavbarComponent() {
+interface INavbarProps {
+  user: string | null | undefined;
+}
+
+export function NavbarComponent({ user }: INavbarProps) {
+  const router = useRouter();
+
   return (
     <Navbar className="h-[60px] bg-slate-500" maxWidth="full">
       <NavbarContent
@@ -49,12 +57,20 @@ export function NavbarComponent() {
           </DropdownTrigger>
           <DropdownMenu aria-label="Profile Actions" variant="flat">
             <DropdownItem key="profile" className="h-14 gap-2">
-              <p className="font-semibold">Signed in as</p>
-              <p className="font-semibold">zoey@example.com</p>
+              <p className="font-semibold">{user}</p>
             </DropdownItem>
             <DropdownItem key="settings">My Settings</DropdownItem>
-            <DropdownItem key="configurations">Configurations</DropdownItem>
-            <DropdownItem key="logout" color="danger">
+            <DropdownItem key="configurations" showDivider={true}>
+              Configurations
+            </DropdownItem>
+            <DropdownItem
+              key="logout"
+              color="danger"
+              onPress={async () => {
+                await signOut({ redirect: false });
+                router.replace("/login");
+              }}
+            >
               Log Out
             </DropdownItem>
           </DropdownMenu>

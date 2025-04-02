@@ -71,7 +71,7 @@ export default async function PrivateLayout({
 
           {/* RIGHT */}
           <div className="w-[86%] md:w-[92%] lg:w-[84%] xl:w-[86%] bg-slate-100 overflow-scroll">
-            <NavbarComponent />
+            <NavbarComponent user={session?.user?.name} />
             <div className="flex-1 mx-20">{children}</div>
           </div>
         </div>
