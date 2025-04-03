@@ -17,9 +17,11 @@ const statusColorMap: Record<string, ChipProps["color"]> = {
   vacation: "warning",
 };
 
-const handleEdit = () => console.log("handleEdit");
-
-export const renderCell = (user: IUser, columnKey: React.Key) => {
+export const renderCell = (
+  user: IUser,
+  columnKey: React.Key,
+  handleEdit: (data: any) => void,
+) => {
   const cellValue = user[columnKey as keyof IUser];
 
   switch (columnKey) {
@@ -62,7 +64,7 @@ export const renderCell = (user: IUser, columnKey: React.Key) => {
                 isIconOnly
                 className="text-lg text-default-400 cursor-pointer active:opacity-50"
                 variant="light"
-                onPress={handleEdit}
+                onPress={() => handleEdit(user)}
               >
                 <EditIcon />
               </Button>

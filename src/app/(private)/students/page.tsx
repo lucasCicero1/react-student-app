@@ -4,7 +4,7 @@ import React from "react";
 import { Button } from "@heroui/react";
 
 import { columns, renderCell as setupRenderCell } from "./renderCell";
-import { modalBody } from "./modalBody";
+import { modalBody, modalBodyUpdate } from "./modalBody";
 
 import { subtitle } from "@/src/components/primitives";
 import Table from "@/src/components/Table";
@@ -17,11 +17,18 @@ import { InputSearch } from "@/src/components/InputSearch";
 
 export default function StudentPage() {
   const renderCell = React.useCallback((user: IUser, columnKey: React.Key) => {
-    return setupRenderCell(user, columnKey);
+    return setupRenderCell(user, columnKey, handleEdit);
   }, []);
+
+  const handleEdit = (user: IUser): void => {
+    setEditedUser(user);
+    setIsModalOpen(true);
+    setWhichModal("Update");
+  };
 
   const addNew = (): void => {
     setIsModalOpen(true);
+    setWhichModal("Create");
   };
 
   const [studentsData, setStudentsData] = React.useState<IUser[]>([]);
@@ -30,6 +37,8 @@ export default function StudentPage() {
   const [filterValue, setFilterValue] = React.useState("");
   const [isLoading, setIsLoading] = React.useState(true);
   const [isModalOpen, setIsModalOpen] = React.useState<boolean>(false);
+  const [whichModal, setWhichModal] = React.useState<string>("");
+  const [editedUser, setEditedUser] = React.useState<object>({});
 
   const searchFields = ["name", "role"] as const;
 
@@ -106,8 +115,10 @@ export default function StudentPage() {
           </Table>
         )}
         <Modal
-          body={modalBody}
-          header={"Create Student"}
+          body={
+            whichModal === "Create" ? modalBody : modalBodyUpdate(editedUser)
+          }
+          header={whichModal === "Create" ? "Create Student" : "Update Student"}
           isOpen={isModalOpen}
           onOpenChange={setIsModalOpen}
         />
