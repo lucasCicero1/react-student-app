@@ -1,7 +1,7 @@
 import "@/src/styles/globals.css";
 import { Metadata, Viewport } from "next";
 import clsx from "clsx";
-import { Menu } from "lucide-react";
+import { Menu as IconMenu } from "lucide-react";
 import Link from "next/link";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
@@ -9,8 +9,8 @@ import { redirect } from "next/navigation";
 import { Providers } from "../providers";
 
 import { nextAuthOptions } from "@/src/app/api/auth/[...nextauth]/route";
-import MenuComponent from "@/src/components/Menu";
-import { NavbarComponent } from "@/src/components/Navbar";
+import { Menu } from "@/src/components/Menu";
+import { Navbar } from "@/src/components/Navbar";
 import { siteConfig } from "@/src/config/site";
 import { fontSans } from "@/src/config/fonts";
 
@@ -60,18 +60,18 @@ export default async function PrivateLayout({
                   Achoo
                 </span>
               </Link>
-              <Menu
+              <IconMenu
                 className="text-slate-500 cursor-pointer"
                 height={25}
                 width={25}
               />
             </div>
-            <MenuComponent />
+            <Menu />
           </div>
 
           {/* RIGHT */}
           <div className="w-[86%] md:w-[92%] lg:w-[84%] xl:w-[86%] bg-slate-100 overflow-scroll">
-            <NavbarComponent user={session?.user?.name} />
+            <Navbar user={session?.user?.name} />
             <div className="flex-1 mx-20">{children}</div>
           </div>
         </div>

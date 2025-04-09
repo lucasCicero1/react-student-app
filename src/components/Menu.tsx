@@ -32,7 +32,7 @@ const menuItems = [
   },
 ];
 
-const MenuComponent = () => {
+export function Menu() {
   return (
     <div className="m-4 text-sm">
       {menuItems.map((item) => (
@@ -54,6 +54,4 @@ const MenuComponent = () => {
       ))}
     </div>
   );
-};
-
-export default MenuComponent;
+}

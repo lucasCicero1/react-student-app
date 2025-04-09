@@ -1,6 +1,6 @@
 "use client";
 
-import { Navbar, NavbarContent, NavbarItem } from "@heroui/navbar";
+import { Navbar as NavbarUI, NavbarContent, NavbarItem } from "@heroui/navbar";
 import { Avatar } from "@heroui/avatar";
 import {
   Dropdown,
@@ -16,11 +16,11 @@ interface INavbarProps {
   user: string | null | undefined;
 }
 
-export function NavbarComponent({ user }: INavbarProps) {
+export function Navbar({ user }: INavbarProps) {
   const router = useRouter();
 
   return (
-    <Navbar className="h-[60px] bg-slate-500" maxWidth="full">
+    <NavbarUI className="h-[60px] bg-slate-500" maxWidth="full">
       <NavbarContent
         className="hidden sm:flex gap-4 text-white"
         justify="center"
@@ -76,6 +76,6 @@ export function NavbarComponent({ user }: INavbarProps) {
           </DropdownMenu>
         </Dropdown>
       </NavbarContent>
-    </Navbar>
+    </NavbarUI>
   );
 }
