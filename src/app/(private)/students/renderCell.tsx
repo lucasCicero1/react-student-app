@@ -21,6 +21,7 @@ export const renderCell = (
   user: IUser,
   columnKey: React.Key,
   handleEdit: (data: any) => void,
+  handleDelete: (data: any) => void,
 ) => {
   const cellValue = user[columnKey as keyof IUser];
 
@@ -72,7 +73,14 @@ export const renderCell = (
           </Tooltip>
           <Tooltip color="danger" content="Delete user">
             <span className="text-lg text-danger cursor-pointer active:opacity-50">
-              <DeleteIcon />
+              <Button
+                isIconOnly
+                className="text-lg text-danger cursor-pointer active:opacity-50"
+                variant="light"
+                onPress={() => handleDelete(user)}
+              >
+                <DeleteIcon />
+              </Button>
             </span>
           </Tooltip>
         </div>

@@ -142,3 +142,13 @@ export const modalBodyUpdate = (data: any) => {
     </div>
   );
 };
+
+export const modalBodyDelete = (data: any) => {
+  return (
+    <div className="space-y-4">
+      <p>
+        Are you sure you want to delete? <b>{data.name}</b>
+      </p>
+    </div>
+  );
+};

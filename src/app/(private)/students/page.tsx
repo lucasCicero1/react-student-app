@@ -4,7 +4,7 @@ import React from "react";
 import { Button, Spinner } from "@heroui/react";
 
 import { columns, renderCell as setupRenderCell } from "./renderCell";
-import { modalBody, modalBodyUpdate } from "./modalBody";
+import { modalBody, modalBodyDelete, modalBodyUpdate } from "./modalBody";
 
 import { subtitle } from "@/src/components/primitives";
 import Table from "@/src/components/Table";
@@ -17,18 +17,24 @@ import { InputSearch } from "@/src/components/InputSearch";
 
 export default function StudentPage() {
   const renderCell = React.useCallback((user: IUser, columnKey: React.Key) => {
-    return setupRenderCell(user, columnKey, handleEdit);
+    return setupRenderCell(user, columnKey, handleEdit, handleDelet);
   }, []);
 
   const handleEdit = (user: IUser): void => {
     setEditedUser(user);
     setIsModalOpen(true);
-    setWhichModal("Update");
+    setWhichModal("Update Student");
+  };
+
+  const handleDelet = (user: IUser): void => {
+    setEditedUser(user);
+    setIsModalOpen(true);
+    setWhichModal("Delete Student");
   };
 
   const addNew = (): void => {
     setIsModalOpen(true);
-    setWhichModal("Create");
+    setWhichModal("Create Student");
   };
 
   const [studentsData, setStudentsData] = React.useState<IUser[]>([]);
@@ -94,6 +100,14 @@ export default function StudentPage() {
     );
   }, [filterValue, onSearchChange, onClear, addNew]);
 
+  const getModalBody = (modalDescription: string): React.JSX.Element => {
+    return {
+      "Create Student": modalBody,
+      "Update Student": modalBodyUpdate(editedUser),
+      "Delete Student": modalBodyDelete(editedUser),
+    }[modalDescription]!;
+  };
+
   return (
     <div>
       <div className={subtitle({ class: "my-8 tracking-wider" })}>Students</div>
@@ -120,10 +134,8 @@ export default function StudentPage() {
           </Table>
         )}
         <Modal
-          body={
-            whichModal === "Create" ? modalBody : modalBodyUpdate(editedUser)
-          }
-          header={whichModal === "Create" ? "Create Student" : "Update Student"}
+          body={getModalBody(whichModal)}
+          header={whichModal}
           isOpen={isModalOpen}
           onOpenChange={setIsModalOpen}
         />
