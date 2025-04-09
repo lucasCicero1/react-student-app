@@ -1,6 +1,6 @@
-import { Chart } from "@/src/components/Chart";
+import CircleChart from "@/src/components/CircleChart";
+import KpiStat from "@/src/components/KpiStat";
 import { subtitle } from "@/src/components/primitives";
-import { quantityStudentsChartData } from "@/src/lib/data";
 
 export default function Home() {
   return (
@@ -8,8 +8,40 @@ export default function Home() {
       <div className={subtitle({ class: "my-8 tracking-wider" })}>
         Performance Report
       </div>
-      <section className="w-full h-[500px] bg-white">
-        <Chart chartData={quantityStudentsChartData} />
+      <section className="w-full h-[500px]">
+        {/* <Chart chartData={quantityStudentsChartData} /> */}
+        <div className="grid w-full grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3">
+          <KpiStat
+            change={"33%"}
+            changeType={"positive"}
+            iconName={"solar:users-group-rounded-linear"}
+            title={"Total Students"}
+            trendChipPosition={"top"}
+            value={"5,400"}
+          />
+        </div>
+
+        <div className="grid w-full grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3 my-5">
+          <CircleChart
+            categories={["Active", "Paused", "Vacation"]}
+            chartData={[
+              { name: "Active", value: 304 },
+              { name: "Paused", value: 43 },
+              { name: "Vacation", value: 57 },
+            ]}
+            color="danger"
+            title="Status"
+          />
+          <CircleChart
+            categories={["Female", "Male"]}
+            chartData={[
+              { name: "Female", value: 350 },
+              { name: "Male", value: 480 },
+            ]}
+            color="primary"
+            title="Browser Usage"
+          />
+        </div>
       </section>
     </div>
   );
