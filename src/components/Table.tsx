@@ -30,7 +30,7 @@ export default function Table({
     <TableUI
       aria-label="Example table with custom cells"
       bottomContent={children}
-      radius="none"
+      radius="sm"
       topContent={topContent}
     >
       <TableHeader columns={columns}>
