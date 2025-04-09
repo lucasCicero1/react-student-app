@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Button } from "@heroui/react";
+import { Button, Spinner } from "@heroui/react";
 
 import { columns, renderCell as setupRenderCell } from "./renderCell";
 import { modalBody, modalBodyUpdate } from "./modalBody";
@@ -47,7 +47,7 @@ export default function StudentPage() {
     setTimeout(() => {
       setStudentsData(users);
       setIsLoading(false);
-    }, 400);
+    }, 1000);
   }, []);
 
   React.useEffect(() => {
@@ -99,7 +99,12 @@ export default function StudentPage() {
       <div className={subtitle({ class: "my-8 tracking-wider" })}>Students</div>
       <section className="w-full">
         {isLoading ? (
-          <div>Loading...</div> // Exibe uma mensagem de "Carregando..." enquanto os dados estão sendo carregados
+          <Spinner
+            className="flex"
+            color="primary"
+            label="Loading..."
+            size="lg"
+          />
         ) : (
           <Table
             columns={columns}
