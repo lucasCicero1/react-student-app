@@ -48,7 +48,9 @@ export function Navbar({ user }: INavbarProps) {
       </NavbarContent>
 
       <NavbarContent as="div" justify="end">
-        <ThemeSwitch />
+        <div className="px-3">
+          <ThemeSwitch />
+        </div>
 
         <Dropdown placement="bottom-end">
           <DropdownTrigger>
