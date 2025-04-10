@@ -7,7 +7,7 @@ import { useTheme } from "next-themes";
 import { useIsSSR } from "@react-aria/ssr";
 import clsx from "clsx";
 
-import { SunFilledIcon, MoonFilledIcon } from "@/src/components/icons";
+import { SunFilledIcon, MoonFilledIcon } from "@/src/config/icons";
 
 export interface ThemeSwitchProps {
   className?: string;
@@ -61,7 +61,8 @@ export const ThemeSwitch: FC<ThemeSwitchProps> = ({
               "rounded-lg",
               "flex items-center justify-center",
               "group-data-[selected=true]:bg-transparent",
-              "!text-default-500",
+              // "!text-default-500",
+              "!text-default-900",
               "pt-px",
               "px-0",
               "mx-0",

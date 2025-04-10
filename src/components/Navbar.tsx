@@ -12,6 +12,8 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { signOut } from "next-auth/react";
 
+import { ThemeSwitch } from "./theme-switch";
+
 interface INavbarProps {
   user: string | null | undefined;
 }
@@ -20,7 +22,10 @@ export function Navbar({ user }: INavbarProps) {
   const router = useRouter();
 
   return (
-    <NavbarUI className="h-[60px] bg-slate-500" maxWidth="full">
+    <NavbarUI
+      className="h-[60px] bg-slate-500 dark:bg-slate-900"
+      maxWidth="full"
+    >
       <NavbarContent
         className="hidden sm:flex gap-4 text-white"
         justify="center"
@@ -43,6 +48,8 @@ export function Navbar({ user }: INavbarProps) {
       </NavbarContent>
 
       <NavbarContent as="div" justify="end">
+        <ThemeSwitch />
+
         <Dropdown placement="bottom-end">
           <DropdownTrigger>
             <Avatar

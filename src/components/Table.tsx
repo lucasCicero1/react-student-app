@@ -30,6 +30,7 @@ export default function Table({
     <TableUI
       aria-label="Example table with custom cells"
       bottomContent={children}
+      className="dark:border dark:rounded-lg dark:border-default-100"
       radius="sm"
       topContent={topContent}
     >

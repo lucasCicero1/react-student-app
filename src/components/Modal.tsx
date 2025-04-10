@@ -23,6 +23,9 @@ export function Modal({
   return (
     <ModalUI
       backdrop={"opaque"}
+      classNames={{
+        backdrop: "dark:blur",
+      }}
       isOpen={isOpen}
       placement="top-center"
       onOpenChange={onOpenChange}
