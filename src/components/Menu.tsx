@@ -43,7 +43,7 @@ export function Menu() {
           {item.items.map((subItem) => (
             <Link
               key={subItem.label}
-              className="flex items-center justify-center lg:justify-start gap-4 text-gray-500 dark:text-gray-400 py-2"
+              className="flex items-center justify-center lg:justify-start gap-4 text-gray-500 dark:text-gray-200 py-2"
               href={subItem.href}
             >
               {subItem.icon}
