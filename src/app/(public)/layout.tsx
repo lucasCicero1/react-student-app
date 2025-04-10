@@ -7,6 +7,7 @@ import { redirect } from "next/navigation";
 import { nextAuthOptions } from "@/src/app/api/auth/[...nextauth]/route";
 import { siteConfig } from "@/src/config/site";
 import { fontSans } from "@/src/config/fonts";
+import { ThemeSwitch } from "@/src/components/theme-switch";
 
 export const metadata: Metadata = {
   title: {
@@ -44,8 +45,13 @@ export default async function PublicLayout({
         fontSans.variable,
       )}
     >
-      <div className="h-screen flex">
-        <div className=" bg-slate-100">{children}</div>
+      <div className="h-screen flex flex-col">
+        <div className="p-5 px-10 absolute right-0">
+          <ThemeSwitch />
+        </div>
+        <div className=" bg-slate-100 dark:bg-slate-700 overflow-hidden">
+          {children}
+        </div>
       </div>
     </div>
   );
