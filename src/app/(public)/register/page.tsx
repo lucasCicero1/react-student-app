@@ -3,15 +3,31 @@
 import React from "react";
 import { Button, Input, Checkbox, Link, Form, Divider } from "@heroui/react";
 import { Icon } from "@iconify/react";
+import { useRouter } from "next/navigation";
+
+import { registerUser } from "./actions";
 
 export default function RegisterPage() {
   const [isVisible, setIsVisible] = React.useState(false);
+  const [user, setUser] = React.useState<string>("");
+  const [email, setEmail] = React.useState<string>("");
+  const [password, setPassword] = React.useState<string>("");
+  const [confirmPassword, setConfirmPassword] = React.useState<string>("");
 
   const toggleVisibility = () => setIsVisible(!isVisible);
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const router = useRouter();
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log("handleSubmit");
+
+    const userResponse = await registerUser(user, email, password);
+
+    if (userResponse?.length) {
+      return "User already exists";
+    } else {
+      router.replace("/login");
+    }
   };
 
   return (
@@ -37,6 +53,7 @@ export default function RegisterPage() {
             placeholder="Enter your username"
             type="text"
             variant="bordered"
+            onChange={(e) => setUser(e.target.value)}
           />
           <Input
             isRequired
@@ -49,6 +66,7 @@ export default function RegisterPage() {
             placeholder="Enter your email"
             type="email"
             variant="bordered"
+            onChange={(e) => setEmail(e.target.value)}
           />
           <Input
             isRequired
@@ -76,6 +94,7 @@ export default function RegisterPage() {
             placeholder="Enter your password"
             type={isVisible ? "text" : "password"}
             variant="bordered"
+            onChange={(e) => setPassword(e.target.value)}
           />
           <Input
             isRequired
@@ -103,6 +122,7 @@ export default function RegisterPage() {
             placeholder="Confirm your password"
             type={isVisible ? "text" : "password"}
             variant="bordered"
+            onChange={(e) => setConfirmPassword(e.target.value)}
           />
           <div className="flex w-full items-center justify-between px-1 py-2">
             <Checkbox isRequired className="py-4" size="sm">
@@ -131,14 +151,6 @@ export default function RegisterPage() {
             variant="bordered"
           >
             Sign Up with Google
-          </Button>
-          <Button
-            startContent={
-              <Icon className="text-default-500" icon="fe:github" width={24} />
-            }
-            variant="bordered"
-          >
-            Sign Up with Github
           </Button>
         </div>
         <p className="text-center text-small">
