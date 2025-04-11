@@ -110,14 +110,6 @@ export default function LoginPage() {
           >
             Continue with Google
           </Button>
-          <Button
-            startContent={
-              <Icon className="text-default-500" icon="fe:github" width={24} />
-            }
-            variant="bordered"
-          >
-            Continue with Github
-          </Button>
         </div>
         <p className="text-center text-small">
           Need to create an account?&nbsp;
