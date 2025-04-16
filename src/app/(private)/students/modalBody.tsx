@@ -1,49 +1,81 @@
-import React, { forwardRef, useImperativeHandle, useState } from "react";
+import React, {
+  forwardRef,
+  useImperativeHandle,
+  useState,
+  useRef,
+} from "react";
 import { Chip, ChipProps, Input, Select, SelectItem } from "@heroui/react";
 import { IdCard, User as UserIcon } from "lucide-react";
 
 import { MailIcon } from "@/src/config/icons";
 
-export const modalBody = (
-  <div className="space-y-4">
-    <Input
-      classNames={{
-        input:
-          "text-small focus:outline-none border-transparent focus:border-transparent focus:ring-0 p-0",
-      }}
-      endContent={
-        <UserIcon className="text-2xl text-default-400 pointer-events-none flex-shrink-0" />
-      }
-      label="Name"
-      placeholder="Enter your name"
-      variant="bordered"
-    />
-    <Input
-      classNames={{
-        input:
-          "text-small focus:outline-none border-transparent focus:border-transparent focus:ring-0 p-0",
-      }}
-      endContent={
-        <MailIcon className="text-2xl text-default-400 pointer-events-none flex-shrink-0" />
-      }
-      label="Email"
-      placeholder="Enter your email"
-      variant="bordered"
-    />
-    <Input
-      classNames={{
-        input:
-          "text-small focus:outline-none border-transparent focus:border-transparent focus:ring-0 p-0",
-      }}
-      endContent={
-        <IdCard className="text-2xl text-default-400 pointer-events-none flex-shrink-0" />
-      }
-      label="CPF"
-      placeholder="Enter your cpf"
-      variant="bordered"
-    />
-  </div>
-);
+export type CreateFormRef = {
+  getFormData: () => {
+    name: string;
+    email: string;
+    cpf: string;
+  };
+};
+
+export const ModalBodyCreate = forwardRef<CreateFormRef>((_, ref) => {
+  const nameInputRef = useRef<HTMLInputElement>(null);
+  const emailInputRef = useRef<HTMLInputElement>(null);
+  const cpfInputRef = useRef<HTMLInputElement>(null);
+
+  useImperativeHandle(ref, () => ({
+    getFormData: () => ({
+      name: nameInputRef.current?.value || "",
+      email: emailInputRef.current?.value || "",
+      cpf: cpfInputRef.current?.value || "",
+    }),
+  }));
+
+  return (
+    <div className="space-y-4">
+      <Input
+        ref={nameInputRef}
+        classNames={{
+          input:
+            "text-small focus:outline-none border-transparent focus:border-transparent focus:ring-0 p-0",
+        }}
+        endContent={
+          <UserIcon className="text-2xl text-default-400 pointer-events-none flex-shrink-0" />
+        }
+        label="Name"
+        placeholder="Enter your name"
+        variant="bordered"
+      />
+      <Input
+        ref={emailInputRef}
+        classNames={{
+          input:
+            "text-small focus:outline-none border-transparent focus:border-transparent focus:ring-0 p-0",
+        }}
+        endContent={
+          <MailIcon className="text-2xl text-default-400 pointer-events-none flex-shrink-0" />
+        }
+        label="Email"
+        placeholder="Enter your email"
+        variant="bordered"
+      />
+      <Input
+        ref={cpfInputRef}
+        classNames={{
+          input:
+            "text-small focus:outline-none border-transparent focus:border-transparent focus:ring-0 p-0",
+        }}
+        endContent={
+          <IdCard className="text-2xl text-default-400 pointer-events-none flex-shrink-0" />
+        }
+        label="CPF"
+        placeholder="Enter your cpf"
+        variant="bordered"
+      />
+    </div>
+  );
+});
+
+ModalBodyCreate.displayName = "ModalBodyCreate";
 
 const statusColorMap: Record<string, ChipProps["color"]> = {
   active: "success",

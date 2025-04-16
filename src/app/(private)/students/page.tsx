@@ -6,7 +6,8 @@ import { useQuery } from "@tanstack/react-query";
 
 import { columns, renderCell as setupRenderCell } from "./renderCell";
 import {
-  modalBody,
+  CreateFormRef,
+  ModalBodyCreate,
   modalBodyDelete,
   ModalBodyUpdate,
   ModalBodyUpdateHandle,
@@ -113,10 +114,11 @@ export default function StudentPage() {
   }, [filterValue, onSearchChange, onClear, addNew]);
 
   const updateFormRef = React.useRef<ModalBodyUpdateHandle>(null);
+  const createFormRef = React.useRef<CreateFormRef>(null);
 
   const getModalBody = (modalDescription: string): React.JSX.Element => {
     return {
-      "Create Student": modalBody,
+      "Create Student": <ModalBodyCreate ref={createFormRef} />,
       "Update Student": (
         <ModalBodyUpdate ref={updateFormRef} data={editedUser} />
       ),
@@ -155,6 +157,11 @@ export default function StudentPage() {
           isOpen={isModalOpen}
           onOpenChange={setIsModalOpen}
           onSave={() => {
+            if (whichModal === "Create Student") {
+              const data = createFormRef.current?.getFormData();
+
+              console.log("data:", data);
+            }
             if (whichModal === "Update Student") {
               const formData = updateFormRef.current?.getFormData();
 
