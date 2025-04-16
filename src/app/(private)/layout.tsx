@@ -13,6 +13,7 @@ import { Menu } from "@/src/components/Menu";
 import { Navbar } from "@/src/components/Navbar";
 import { siteConfig } from "@/src/config/site";
 import { fontSans } from "@/src/config/fonts";
+import { ReactQueryProvider } from "@/src/providers/ReactQueryProvider";
 
 export const metadata: Metadata = {
   title: {
@@ -51,30 +52,32 @@ export default async function PrivateLayout({
       )}
     >
       <Providers themeProps={{ attribute: "class", defaultTheme: "dark" }}>
-        <div className="h-screen flex">
-          {/* LEFT */}
-          <div className="w-[14%] md:w-[10%] lg:w-[16%] xl:w-[14%]">
-            <div className="h-[60px] flex items-center justify-between px-8 bg-slate-700 dark:bg-slate-950">
-              <Link href="/">
-                <span className="hidden lg:block text-gray-300 font-medium">
-                  Achoo
-                </span>
-              </Link>
-              <IconMenu
-                className="text-slate-500 cursor-pointer"
-                height={25}
-                width={25}
-              />
+        <ReactQueryProvider>
+          <div className="h-screen flex">
+            {/* LEFT */}
+            <div className="w-[14%] md:w-[10%] lg:w-[16%] xl:w-[14%]">
+              <div className="h-[60px] flex items-center justify-between px-8 bg-slate-700 dark:bg-slate-950">
+                <Link href="/">
+                  <span className="hidden lg:block text-gray-300 font-medium">
+                    Achoo
+                  </span>
+                </Link>
+                <IconMenu
+                  className="text-slate-500 cursor-pointer"
+                  height={25}
+                  width={25}
+                />
+              </div>
+              <Menu />
             </div>
-            <Menu />
-          </div>
 
-          {/* RIGHT */}
-          <div className="w-[86%] md:w-[92%] lg:w-[84%] xl:w-[86%] bg-slate-100 dark:bg-slate-800 dark:border-l-1 border-transparent dark:border-default-300 overflow-y-scroll">
-            <Navbar user={session?.user?.name} />
-            <div className="flex-1 mx-20">{children}</div>
+            {/* RIGHT */}
+            <div className="w-[86%] md:w-[92%] lg:w-[84%] xl:w-[86%] bg-slate-100 dark:bg-slate-800 dark:border-l-1 border-transparent dark:border-default-300 overflow-y-scroll">
+              <Navbar user={session?.user?.name} />
+              <div className="flex-1 mx-20">{children}</div>
+            </div>
           </div>
-        </div>
+        </ReactQueryProvider>
       </Providers>
     </div>
   );
