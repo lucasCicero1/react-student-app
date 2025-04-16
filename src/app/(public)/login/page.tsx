@@ -6,6 +6,8 @@ import { Icon } from "@iconify/react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
+import { ErrorToast } from "@/src/components/Toast";
+
 export default function LoginPage() {
   const [isVisible, setIsVisible] = React.useState<boolean>(false);
   const [email, setEmail] = React.useState<string>("");
@@ -25,7 +27,18 @@ export default function LoginPage() {
     });
 
     if (result?.error) {
-      console.log(result);
+      if (result.status === 401) {
+        ErrorToast({
+          title: "Unauthorized",
+          description: "User is not authorized !",
+        });
+
+        return;
+      }
+      ErrorToast({
+        title: "Internal Server Error",
+        description: "",
+      });
 
       return;
     }
