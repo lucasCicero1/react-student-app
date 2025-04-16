@@ -7,6 +7,8 @@ import { useRouter } from "next/navigation";
 
 import { registerUser } from "./actions";
 
+import { SuccessToast, ErrorToast } from "@/src/components/Toast";
+
 export default function RegisterPage() {
   const [isVisible, setIsVisible] = React.useState(false);
   const [user, setUser] = React.useState<string>("");
@@ -24,10 +26,19 @@ export default function RegisterPage() {
     const userResponse = await registerUser(user, email, password);
 
     if (userResponse?.length) {
-      return "User already exists";
-    } else {
-      router.replace("/login");
+      ErrorToast({
+        title: "User already exists !",
+        description: "Try another e-mail.",
+      });
+
+      return;
     }
+
+    router.replace("/login");
+    SuccessToast({
+      title: "Ready to Login",
+      description: "User registered successfully.",
+    });
   };
 
   return (
