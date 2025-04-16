@@ -211,12 +211,32 @@ export const ModalBodyUpdate = forwardRef<ModalBodyUpdateHandle, { data: any }>(
 
 ModalBodyUpdate.displayName = "ModalBodyUpdate";
 
-export const modalBodyDelete = (data: any) => {
-  return (
-    <div className="space-y-4">
-      <p>
-        Are you sure you want to delete? <b>{data.name}</b>
-      </p>
-    </div>
-  );
-};
+export interface DeleteFormRef {
+  getFormData: () => {
+    id: string;
+    name: string;
+    email: string;
+  };
+}
+
+export const ModalBodyDelete = forwardRef<DeleteFormRef, { data: any }>(
+  ({ data }, ref) => {
+    useImperativeHandle(ref, () => ({
+      getFormData: () => ({
+        id: data.id,
+        name: data.name,
+        email: data.email,
+      }),
+    }));
+
+    return (
+      <div className="space-y-4">
+        <p>
+          Are you sure you want to delete <b>{data.name}</b>?
+        </p>
+      </div>
+    );
+  },
+);
+
+ModalBodyDelete.displayName = "ModalBodyDelete";

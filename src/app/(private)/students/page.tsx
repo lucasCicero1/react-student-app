@@ -7,8 +7,9 @@ import { useQuery } from "@tanstack/react-query";
 import { columns, renderCell as setupRenderCell } from "./renderCell";
 import {
   CreateFormRef,
+  DeleteFormRef,
   ModalBodyCreate,
-  modalBodyDelete,
+  ModalBodyDelete,
   ModalBodyUpdate,
   ModalBodyUpdateHandle,
 } from "./modalBody";
@@ -115,6 +116,7 @@ export default function StudentPage() {
 
   const updateFormRef = React.useRef<ModalBodyUpdateHandle>(null);
   const createFormRef = React.useRef<CreateFormRef>(null);
+  const deleteFormRef = React.useRef<DeleteFormRef>(null);
 
   const getModalBody = (modalDescription: string): React.JSX.Element => {
     return {
@@ -122,7 +124,9 @@ export default function StudentPage() {
       "Update Student": (
         <ModalBodyUpdate ref={updateFormRef} data={editedUser} />
       ),
-      "Delete Student": modalBodyDelete(editedUser),
+      "Delete Student": (
+        <ModalBodyDelete ref={deleteFormRef} data={editedUser} />
+      ),
     }[modalDescription]!;
   };
 
@@ -157,16 +161,13 @@ export default function StudentPage() {
           isOpen={isModalOpen}
           onOpenChange={setIsModalOpen}
           onSave={() => {
-            if (whichModal === "Create Student") {
-              const data = createFormRef.current?.getFormData();
+            const formData = {
+              "Create Student": createFormRef.current?.getFormData(),
+              "Update Student": updateFormRef.current?.getFormData(),
+              "Delete Student": deleteFormRef.current?.getFormData(),
+            }[whichModal];
 
-              console.log("data:", data);
-            }
-            if (whichModal === "Update Student") {
-              const formData = updateFormRef.current?.getFormData();
-
-              console.log("Dados do formulário de update:", formData);
-            }
+            console.log("formData: ", formData);
           }}
         />
       </section>
