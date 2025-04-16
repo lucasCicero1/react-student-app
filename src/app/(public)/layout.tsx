@@ -8,6 +8,7 @@ import { nextAuthOptions } from "@/src/app/api/auth/[...nextauth]/route";
 import { siteConfig } from "@/src/config/site";
 import { fontSans } from "@/src/config/fonts";
 import { ThemeSwitch } from "@/src/components/theme-switch";
+import ToastProviders from "@/src/providers/toastProvider";
 
 export const metadata: Metadata = {
   title: {
@@ -50,7 +51,7 @@ export default async function PublicLayout({
           <ThemeSwitch />
         </div>
         <div className=" bg-slate-100 dark:bg-slate-700 overflow-hidden">
-          {children}
+          <ToastProviders>{children}</ToastProviders>
         </div>
       </div>
     </div>
