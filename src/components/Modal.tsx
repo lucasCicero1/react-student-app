@@ -28,6 +28,7 @@ export function Modal({
       classNames={{
         backdrop: "dark:blur",
       }}
+      isDismissable={false}
       isOpen={isOpen}
       placement="top-center"
       onOpenChange={onOpenChange}
