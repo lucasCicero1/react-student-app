@@ -6,7 +6,8 @@ import { User as IUser } from "@/src/types";
 
 export const columns = [
   { name: "NAME", uid: "name" },
-  { name: "ROLE", uid: "role" },
+  { name: "EMAIL", uid: "email" },
+  { name: "CPF", uid: "cpf" },
   { name: "STATUS", uid: "status" },
   { name: "ACTIONS", uid: "actions" },
 ];
@@ -28,23 +29,14 @@ export const renderCell = (
   switch (columnKey) {
     case "name":
       return (
-        <User
-          avatarProps={{ radius: "lg", src: user.avatar }}
-          description={user.email}
-          name={cellValue}
-        >
-          {user.email}
+        <User avatarProps={{ radius: "lg", src: user.avatar }} name={cellValue}>
+          {user.name}
         </User>
       );
-    case "role":
-      return (
-        <div className="flex flex-col">
-          <p className="text-bold text-sm capitalize">{cellValue}</p>
-          <p className="text-bold text-sm capitalize text-default-400">
-            {user.team}
-          </p>
-        </div>
-      );
+    case "email":
+      return <p className="text-bold text-sm">{cellValue}</p>;
+    case "cpf":
+      return <p className="text-bold text-sm">{cellValue}</p>;
     case "status":
       return (
         <Chip
