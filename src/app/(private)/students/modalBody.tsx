@@ -64,12 +64,12 @@ export const modalBodyUpdate = (data: any) => {
           input:
             "text-small focus:outline-none border-transparent focus:border-transparent focus:ring-0 p-0",
         }}
+        defaultValue={data.name}
         endContent={
           <UserIcon className="text-2xl text-default-400 pointer-events-none flex-shrink-0" />
         }
         label="Name"
         placeholder="Enter your name"
-        value={data.name}
         variant="bordered"
       />
       <Input
@@ -77,12 +77,12 @@ export const modalBodyUpdate = (data: any) => {
           input:
             "text-small focus:outline-none border-transparent focus:border-transparent focus:ring-0 p-0",
         }}
+        defaultValue={data.email}
         endContent={
           <MailIcon className="text-2xl text-default-400 pointer-events-none flex-shrink-0" />
         }
         label="Email"
         placeholder="Enter your email"
-        value={data.email}
         variant="bordered"
       />
       <Input
@@ -90,12 +90,12 @@ export const modalBodyUpdate = (data: any) => {
           input:
             "text-small focus:outline-none border-transparent focus:border-transparent focus:ring-0 p-0",
         }}
+        defaultValue={data.role}
         endContent={
           <IdCard className="text-2xl text-default-400 pointer-events-none flex-shrink-0" />
         }
         label="Role"
         placeholder="Enter your role"
-        value={data.role}
         variant="bordered"
       />
       <Select
