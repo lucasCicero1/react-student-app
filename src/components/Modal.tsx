@@ -12,6 +12,7 @@ interface IModalProps {
   onOpenChange: React.Dispatch<React.SetStateAction<boolean>>;
   header: string;
   body: React.JSX.Element;
+  onSave?: () => void;
 }
 
 export function Modal({
@@ -19,6 +20,7 @@ export function Modal({
   onOpenChange,
   header,
   body,
+  onSave,
 }: Readonly<IModalProps>) {
   return (
     <ModalUI
@@ -39,7 +41,13 @@ export function Modal({
               <Button color="danger" variant="light" onPress={onClose}>
                 Cancel
               </Button>
-              <Button color="primary" onPress={onClose}>
+              <Button
+                color="primary"
+                onPress={() => {
+                  onSave?.();
+                  onClose();
+                }}
+              >
                 Save
               </Button>
             </ModalFooter>

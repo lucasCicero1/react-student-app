@@ -5,7 +5,12 @@ import { Button, Spinner } from "@heroui/react";
 import { useQuery } from "@tanstack/react-query";
 
 import { columns, renderCell as setupRenderCell } from "./renderCell";
-import { modalBody, modalBodyDelete, modalBodyUpdate } from "./modalBody";
+import {
+  modalBody,
+  modalBodyDelete,
+  ModalBodyUpdate,
+  ModalBodyUpdateHandle,
+} from "./modalBody";
 
 import { subtitle } from "@/src/components/primitives";
 import Table from "@/src/components/Table";
@@ -107,10 +112,14 @@ export default function StudentPage() {
     );
   }, [filterValue, onSearchChange, onClear, addNew]);
 
+  const updateFormRef = React.useRef<ModalBodyUpdateHandle>(null);
+
   const getModalBody = (modalDescription: string): React.JSX.Element => {
     return {
       "Create Student": modalBody,
-      "Update Student": modalBodyUpdate(editedUser),
+      "Update Student": (
+        <ModalBodyUpdate ref={updateFormRef} data={editedUser} />
+      ),
       "Delete Student": modalBodyDelete(editedUser),
     }[modalDescription]!;
   };
@@ -145,6 +154,13 @@ export default function StudentPage() {
           header={whichModal}
           isOpen={isModalOpen}
           onOpenChange={setIsModalOpen}
+          onSave={() => {
+            if (whichModal === "Update Student") {
+              const formData = updateFormRef.current?.getFormData();
+
+              console.log("Dados do formulário de update:", formData);
+            }
+          }}
         />
       </section>
     </div>
