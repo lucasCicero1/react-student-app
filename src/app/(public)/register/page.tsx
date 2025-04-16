@@ -10,11 +10,12 @@ import { registerUser } from "./actions";
 import { SuccessToast, ErrorToast } from "@/src/components/Toast";
 
 export default function RegisterPage() {
-  const [isVisible, setIsVisible] = React.useState(false);
+  const [isVisible, setIsVisible] = React.useState<boolean>(false);
   const [user, setUser] = React.useState<string>("");
   const [email, setEmail] = React.useState<string>("");
   const [password, setPassword] = React.useState<string>("");
   const [confirmPassword, setConfirmPassword] = React.useState<string>("");
+  const [isInvalid, setIsInvalid] = React.useState<boolean>(false);
 
   const toggleVisibility = () => setIsVisible(!isVisible);
 
@@ -22,6 +23,12 @@ export default function RegisterPage() {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    if (password !== confirmPassword) {
+      setIsInvalid(true);
+
+      return;
+    }
 
     const userResponse = await registerUser(user, email, password);
 
@@ -128,6 +135,8 @@ export default function RegisterPage() {
                 )}
               </button>
             }
+            errorMessage="Password is different"
+            isInvalid={isInvalid}
             label="Confirm Password"
             name="confirmPassword"
             placeholder="Confirm your password"
