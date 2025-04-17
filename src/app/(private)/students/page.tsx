@@ -21,7 +21,11 @@ import { User as IUser } from "@/src/types";
 import { Pagination } from "@/src/components/Pagination";
 import { Modal } from "@/src/components/Modal";
 import { InputSearch } from "@/src/components/InputSearch";
-import { createStudent, getStudents } from "@/src/lib/api/studentsApi";
+import {
+  createStudent,
+  getStudents,
+  updateStudent,
+} from "@/src/lib/api/studentsApi";
 
 export default function StudentPage() {
   const renderCell = React.useCallback((user: IUser, columnKey: React.Key) => {
@@ -174,7 +178,12 @@ export default function StudentPage() {
                 }
               },
               "Update Student": async () => {
-                updateFormRef.current?.getFormData();
+                const updateFormData = updateFormRef.current?.getFormData();
+
+                if (updateFormData) {
+                  await updateStudent(updateFormData);
+                  queryClient.invalidateQueries({ queryKey: ["students"] });
+                }
               },
               "Delete Student": async () => {
                 deleteFormRef.current?.getFormData();
