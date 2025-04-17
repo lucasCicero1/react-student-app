@@ -2,7 +2,7 @@
 
 import React from "react";
 import { Button, Spinner } from "@heroui/react";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 
 import { columns, renderCell as setupRenderCell } from "./renderCell";
 import {
@@ -130,6 +130,8 @@ export default function StudentPage() {
     }[modalDescription]!;
   };
 
+  const queryClient = useQueryClient();
+
   return (
     <div>
       <div className={subtitle({ class: "my-8 tracking-wider" })}>Students</div>
@@ -168,6 +170,7 @@ export default function StudentPage() {
                 if (createFormData) {
                   console.log("createFormData", createFormData);
                   await createStudent(createFormData);
+                  queryClient.invalidateQueries({ queryKey: ["students"] });
                 }
               },
               "Update Student": async () => {
