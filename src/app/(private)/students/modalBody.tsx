@@ -157,8 +157,9 @@ export type ModalBodyUpdateHandle = {
   getFormData: () => {
     name: string;
     email: string;
-    role: string;
+    cpf: string;
     status: string;
+    avatar: string;
   };
 };
 
@@ -166,20 +167,37 @@ export const ModalBodyUpdate = forwardRef<ModalBodyUpdateHandle, { data: any }>(
   ({ data }, ref) => {
     const [name, setName] = useState<string>(data.name || "");
     const [email, setEmail] = useState<string>(data.email || "");
-    const [role, setRole] = useState<string>(data.role || "");
+    const [cpf, setCpf] = useState<string>(data.cpf || "");
     const [statusValue, setStatusValue] = useState<string>(data.status || "");
+    const [avatar, setAvatar] = useState<string>(data.avatar || "");
 
     useImperativeHandle(ref, () => ({
       getFormData: () => ({
         name,
         email,
-        role,
+        cpf,
         status: statusValue,
+        avatar,
       }),
     }));
 
     return (
       <div className="space-y-4">
+        <Input
+          classNames={{
+            input:
+              "text-small focus:outline-none border-transparent focus:border-transparent focus:ring-0 p-0",
+          }}
+          defaultValue={avatar}
+          endContent={
+            <CircleUser className="text-2xl text-default-400 pointer-events-none flex-shrink-0" />
+          }
+          label="Avatar"
+          placeholder="Enter your avatar url"
+          type="url"
+          variant="bordered"
+          onValueChange={setAvatar}
+        />
         <Input
           classNames={{
             input:
@@ -213,14 +231,14 @@ export const ModalBodyUpdate = forwardRef<ModalBodyUpdateHandle, { data: any }>(
             input:
               "text-small focus:outline-none border-transparent focus:border-transparent focus:ring-0 p-0",
           }}
-          defaultValue={role}
+          defaultValue={cpf}
           endContent={
             <IdCard className="text-2xl text-default-400 pointer-events-none flex-shrink-0" />
           }
-          label="Role"
-          placeholder="Enter your role"
+          label="Cpf"
+          placeholder="Enter your cpf"
           variant="bordered"
-          onValueChange={setRole}
+          onValueChange={setCpf}
         />
         <Select
           classNames={{
