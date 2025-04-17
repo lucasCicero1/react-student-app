@@ -41,3 +41,18 @@ export async function updateStudent(student: Partial<IUser>): Promise<void> {
     throw new Error("Erro ao buscar dados da API");
   }
 }
+
+export async function deleteStudent({
+  cpf,
+}: Pick<IUser, "cpf">): Promise<void> {
+  const response = await fetch(
+    `http://localhost:3001/v1/delete/student?cpf=${cpf}`,
+    {
+      method: "DELETE",
+    },
+  );
+
+  if (!response.ok) {
+    throw new Error("Erro ao buscar dados da API");
+  }
+}
