@@ -21,7 +21,7 @@ import { User as IUser } from "@/src/types";
 import { Pagination } from "@/src/components/Pagination";
 import { Modal } from "@/src/components/Modal";
 import { InputSearch } from "@/src/components/InputSearch";
-import { getStudents } from "@/src/lib/api/studentsApi";
+import { createStudent, getStudents } from "@/src/lib/api/studentsApi";
 
 export default function StudentPage() {
   const renderCell = React.useCallback((user: IUser, columnKey: React.Key) => {
@@ -54,7 +54,7 @@ export default function StudentPage() {
   const [whichModal, setWhichModal] = React.useState<string>("");
   const [editedUser, setEditedUser] = React.useState<object>({});
 
-  const searchFields = ["name", "role"] as const;
+  const searchFields = ["name", "email"] as const;
 
   const { data, error } = useQuery<IUser[]>({
     queryKey: ["students"],
@@ -161,13 +161,22 @@ export default function StudentPage() {
           isOpen={isModalOpen}
           onOpenChange={setIsModalOpen}
           onSave={() => {
-            const formData = {
-              "Create Student": createFormRef.current?.getFormData(),
-              "Update Student": updateFormRef.current?.getFormData(),
-              "Delete Student": deleteFormRef.current?.getFormData(),
-            }[whichModal];
+            return {
+              "Create Student": async () => {
+                const createFormData = createFormRef.current?.getFormData();
 
-            console.log("formData: ", formData);
+                if (createFormData) {
+                  console.log("createFormData", createFormData);
+                  await createStudent(createFormData);
+                }
+              },
+              "Update Student": async () => {
+                updateFormRef.current?.getFormData();
+              },
+              "Delete Student": async () => {
+                deleteFormRef.current?.getFormData();
+              },
+            }[whichModal]!();
           }}
         />
       </section>
