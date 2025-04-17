@@ -13,8 +13,23 @@ export async function getStudents(): Promise<IUser[] | []> {
 }
 
 export async function createStudent(student: Partial<IUser>): Promise<void> {
-  const response = await fetch(`http://localhost:3001/v1/create/student`, {
+  const response = await fetch("http://localhost:3001/v1/create/student", {
     method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(student),
+  });
+
+  if (!response.ok) {
+    throw new Error("Erro ao buscar dados da API");
+  }
+}
+
+export async function updateStudent(student: Partial<IUser>): Promise<void> {
+  const response = await fetch("http://localhost:3001/v1/update/student", {
+    method: "PATCH",
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
