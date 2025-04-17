@@ -23,6 +23,7 @@ import { Modal } from "@/src/components/Modal";
 import { InputSearch } from "@/src/components/InputSearch";
 import {
   createStudent,
+  deleteStudent,
   getStudents,
   updateStudent,
 } from "@/src/lib/api/studentsApi";
@@ -186,7 +187,12 @@ export default function StudentPage() {
                 }
               },
               "Delete Student": async () => {
-                deleteFormRef.current?.getFormData();
+                const deleteFormData = deleteFormRef.current?.getFormData();
+
+                if (deleteFormData) {
+                  await deleteStudent(deleteFormData);
+                  queryClient.invalidateQueries({ queryKey: ["students"] });
+                }
               },
             }[whichModal]!();
           }}
