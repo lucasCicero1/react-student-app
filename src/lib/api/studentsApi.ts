@@ -12,7 +12,9 @@ export async function getStudents(): Promise<IUser[] | []> {
   return studentsResponse.json();
 }
 
-export async function createStudent(student: Partial<IUser>): Promise<void> {
+export async function createStudent(
+  student: Omit<IUser, "id" | "ra">,
+): Promise<void> {
   const response = await fetch("http://localhost:3001/v1/create/student", {
     method: "POST",
     headers: {
@@ -27,7 +29,9 @@ export async function createStudent(student: Partial<IUser>): Promise<void> {
   }
 }
 
-export async function updateStudent(student: Partial<IUser>): Promise<void> {
+export async function updateStudent(
+  student: Omit<IUser, "id" | "ra">,
+): Promise<void> {
   const response = await fetch("http://localhost:3001/v1/update/student", {
     method: "PATCH",
     headers: {
