@@ -11,9 +11,11 @@ import { MailIcon } from "@/src/config/icons";
 
 export type CreateFormRef = {
   getFormData: () => {
+    avatar: string;
     name: string;
     email: string;
     cpf: string;
+    status: string;
   };
 };
 
