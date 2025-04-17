@@ -298,6 +298,7 @@ export interface DeleteFormRef {
     id: string;
     name: string;
     email: string;
+    cpf: string;
   };
 }
 
@@ -308,6 +309,7 @@ export const ModalBodyDelete = forwardRef<DeleteFormRef, { data: any }>(
         id: data.id,
         name: data.name,
         email: data.email,
+        cpf: data.cpf,
       }),
     }));
 
