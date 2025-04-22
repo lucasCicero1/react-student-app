@@ -5,7 +5,7 @@ import { Button, Input, Checkbox, Link, Form, Divider } from "@heroui/react";
 import { Icon } from "@iconify/react";
 import { useRouter } from "next/navigation";
 
-import { registerUser } from "./actions";
+import { registerUser, sendEmailConfirmation } from "./actions";
 
 import { SuccessToast, ErrorToast } from "@/src/components/Toast";
 
@@ -40,6 +40,8 @@ export default function RegisterPage() {
 
       return;
     }
+
+    await sendEmailConfirmation(email, user);
 
     router.replace("/login");
     SuccessToast({
