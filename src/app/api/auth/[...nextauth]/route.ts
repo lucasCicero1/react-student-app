@@ -16,7 +16,7 @@ const nextAuthOptions: NextAuthOptions = {
         const user = await getUser(email);
 
         if (!user.length) return null;
-        let passwordsMatch = await compare(password, user[0].password!);
+        const passwordsMatch = await compare(password, user[0].password!);
 
         if (passwordsMatch) return user[0] as any;
       },
