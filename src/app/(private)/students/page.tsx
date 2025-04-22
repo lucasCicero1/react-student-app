@@ -173,7 +173,6 @@ export default function StudentPage() {
                 const createFormData = createFormRef.current?.getFormData();
 
                 if (createFormData) {
-                  console.log("createFormData", createFormData);
                   await createStudent(createFormData);
                   queryClient.invalidateQueries({ queryKey: ["students"] });
                 }
