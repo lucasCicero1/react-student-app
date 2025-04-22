@@ -1,5 +1,11 @@
 import { drizzle } from "drizzle-orm/postgres-js";
-import { pgTable, varchar, serial, timestamp } from "drizzle-orm/pg-core";
+import {
+  pgTable,
+  varchar,
+  serial,
+  timestamp,
+  boolean,
+} from "drizzle-orm/pg-core";
 import { eq } from "drizzle-orm";
 import postgres from "postgres";
 import { genSaltSync, hashSync } from "bcrypt-ts";
@@ -41,6 +47,7 @@ async function ensureTableExists() {
         name VARCHAR(64),
         email VARCHAR(64),
         password VARCHAR(64),
+        active BOOLEAN NOT NULL DEFAULT false,
         created_at timestamp DEFAULT now() NOT NULL,
         updated_at timestamp DEFAULT now() NOT NULL
       );`;
@@ -50,6 +57,7 @@ async function ensureTableExists() {
     id: serial("id").primaryKey(),
     name: varchar("name", { length: 64 }),
     email: varchar("email", { length: 64 }),
+    active: boolean().notNull().default(false),
     password: varchar("password", { length: 64 }),
     createdAt: timestamp("created_at").notNull().defaultNow(),
     updatedAt: timestamp("updated_at").notNull().defaultNow(),
