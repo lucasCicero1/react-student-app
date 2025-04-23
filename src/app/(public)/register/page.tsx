@@ -158,7 +158,17 @@ export default function RegisterPage() {
               </Link>
             </Checkbox>
           </div>
-          <Button className="w-full" color="primary" type="submit">
+          <Button
+            className="w-full"
+            color="primary"
+            isDisabled={
+              !user.length ||
+              !email.length ||
+              !password.length ||
+              !confirmPassword.length
+            }
+            type="submit"
+          >
             Sign Up
           </Button>
         </Form>

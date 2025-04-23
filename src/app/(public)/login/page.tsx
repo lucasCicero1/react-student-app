@@ -129,7 +129,12 @@ export default function LoginPage() {
               Forgot password?
             </Link>
           </div>
-          <Button className="w-full" color="primary" type="submit">
+          <Button
+            className="w-full"
+            color="primary"
+            isDisabled={!email.length || !password.length}
+            type="submit"
+          >
             Sign In
           </Button>
         </Form>
