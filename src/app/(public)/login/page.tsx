@@ -6,6 +6,8 @@ import { Icon } from "@iconify/react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
+import { getUserFromDb } from "./actions";
+
 import { ErrorToast } from "@/src/components/Toast";
 
 export default function LoginPage() {
@@ -19,6 +21,26 @@ export default function LoginPage() {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    const [userReponse] = await getUserFromDb(email);
+
+    if (!userReponse) {
+      ErrorToast({
+        title: "Unregistered email",
+        description: "You need to register the email !",
+      });
+
+      return;
+    }
+
+    if (!userReponse.active) {
+      ErrorToast({
+        title: "Unconfirmed email",
+        description: "You need to confirm the email !",
+      });
+
+      return;
+    }
 
     const result = await signIn("credentials", {
       email,
