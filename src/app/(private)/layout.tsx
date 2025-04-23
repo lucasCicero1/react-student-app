@@ -8,7 +8,7 @@ import { redirect } from "next/navigation";
 
 import { Providers } from "../providers";
 
-import { nextAuthOptions } from "@/src/app/api/auth/[...nextauth]/route";
+import { nextAuthOptions } from "@/src/lib/auth/options";
 import { Menu } from "@/src/components/Menu";
 import { Navbar } from "@/src/components/Navbar";
 import { siteConfig } from "@/src/config/site";

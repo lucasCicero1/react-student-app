@@ -4,7 +4,7 @@ import clsx from "clsx";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 
-import { nextAuthOptions } from "@/src/app/api/auth/[...nextauth]/route";
+import { nextAuthOptions } from "@/src/lib/auth/options";
 import { siteConfig } from "@/src/config/site";
 import { fontSans } from "@/src/config/fonts";
 import { ThemeSwitch } from "@/src/components/theme-switch";
