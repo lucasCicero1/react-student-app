@@ -20,7 +20,10 @@ export async function registerUser(
   return null;
 }
 
-export async function sendEmailConfirmation(email: string, name: string) {
+export async function sendEmailConfirmation(
+  email: string,
+  name: string,
+): Promise<void> {
   const resend = new Resend(process.env.RESEND_API_KEY);
 
   const token = JWTToken.encrypt({
