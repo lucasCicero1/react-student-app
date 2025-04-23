@@ -12,8 +12,8 @@ import { ErrorToast } from "@/src/components/Toast";
 
 export default function LoginPage() {
   const [isVisible, setIsVisible] = React.useState<boolean>(false);
-  const [email, setEmail] = React.useState<string>("");
-  const [password, setPassword] = React.useState<string>("");
+  const [email, setEmail] = React.useState<string>("admin@mail.com");
+  const [password, setPassword] = React.useState<string>("admin");
 
   const toggleVisibility = () => setIsVisible(!isVisible);
 
@@ -90,8 +90,9 @@ export default function LoginPage() {
             name="email"
             placeholder="Enter your email"
             type="email"
+            value="admin@mail.com"
             variant="bordered"
-            onChange={(e) => setEmail(e.target.value)}
+            // onChange={(e) => setEmail(e.target.value)}
           />
           <Input
             isRequired
@@ -118,8 +119,9 @@ export default function LoginPage() {
             name="password"
             placeholder="Enter your password"
             type={isVisible ? "text" : "password"}
+            value="admin"
             variant="bordered"
-            onChange={(e) => setPassword(e.target.value)}
+            // onChange={(e) => setPassword(e.target.value)}
           />
           <div className="flex w-full items-center justify-between px-1 py-2">
             <Checkbox name="remember" size="sm">
@@ -132,7 +134,7 @@ export default function LoginPage() {
           <Button
             className="w-full"
             color="primary"
-            isDisabled={!email.length || !password.length}
+            // isDisabled={!email.length || !password.length}
             type="submit"
           >
             Sign In
