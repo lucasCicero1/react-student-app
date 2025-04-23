@@ -61,7 +61,7 @@ export default function StudentPage() {
 
   const searchFields = ["name", "email"] as const;
 
-  const { data, error } = useQuery<IUser[]>({
+  const { data } = useQuery<IUser[]>({
     queryKey: ["students"],
     queryFn: getStudents,
     staleTime: 1000 * 60 * 5, // 5 minutos - Dentro desse tempo, o React Query não faz nova requisição e usa o que tá no cache
