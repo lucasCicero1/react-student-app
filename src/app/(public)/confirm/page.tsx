@@ -6,13 +6,9 @@ import { JWTToken } from "@/src/shared/jwt-token";
 import { mailTokenSecret } from "@/src/config/configs";
 import { activeUser } from "@/src/lib/db";
 
-export default async function ConfirmPage({
-  searchParams,
-}: {
-  searchParams: { token?: string };
-}) {
-  const param = await searchParams;
-  const token = param?.token;
+export default async function ConfirmPage(props: any) {
+  const token = props?.searchParams?.token;
+
   const decryptedToken = await JWTToken.decrypt({
     token: token ?? "",
     secret: mailTokenSecret,
