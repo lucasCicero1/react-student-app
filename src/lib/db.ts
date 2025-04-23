@@ -32,6 +32,15 @@ export async function createUser(
   return await db.insert(usersTable).values({ name, email, password: hash });
 }
 
+export async function activeUser(email: string) {
+  const usersTable = await ensureTableExists();
+
+  await db
+    .update(usersTable)
+    .set({ active: true })
+    .where(eq(usersTable.email, email));
+}
+
 async function ensureTableExists() {
   const result = await client`
     SELECT EXISTS (

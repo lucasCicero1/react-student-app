@@ -4,6 +4,7 @@ import ConfirmClient from "./confirmClient";
 
 import { JWTToken } from "@/src/shared/jwt-token";
 import { mailTokenSecret } from "@/src/config/configs";
+import { activeUser } from "@/src/lib/db";
 
 export default async function ConfirmPage({
   searchParams,
@@ -18,6 +19,8 @@ export default async function ConfirmPage({
   });
 
   const email = (decryptedToken as JwtPayload)?.email ?? null;
+
+  if (email) await activeUser(email);
 
   return <ConfirmClient email={email} />;
 }
