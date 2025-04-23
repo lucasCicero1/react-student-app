@@ -1,33 +1,7 @@
-import NextAuth, { NextAuthOptions } from "next-auth";
-import CredentialsProvider from "next-auth/providers/credentials";
-import { compare } from "bcrypt-ts";
+import NextAuth from "next-auth";
 
-import { getUser } from "@/src/lib/db";
-
-const nextAuthOptions: NextAuthOptions = {
-  providers: [
-    CredentialsProvider({
-      name: "Credentials",
-      credentials: {
-        email: { label: "email", type: "text" },
-        password: { label: "Password", type: "password" },
-      },
-      async authorize({ email, password }: any) {
-        const user = await getUser(email);
-
-        if (!user.length) return null;
-        const passwordsMatch = await compare(password, user[0].password!);
-
-        if (passwordsMatch) return user[0] as any;
-      },
-    }),
-  ],
-  pages: {
-    signIn: "/login",
-    newUser: "/register",
-  },
-};
+import { nextAuthOptions } from "@/src/lib/auth/options";
 
 const handler = NextAuth(nextAuthOptions);
 
-export { handler as GET, handler as POST, nextAuthOptions };
+export { handler as GET, handler as POST };
