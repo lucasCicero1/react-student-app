@@ -1,53 +1,66 @@
-# Next.js & HeroUI Template
+## 🎯 About
 
-This is a template for creating applications using Next.js 14 (app directory) and HeroUI (v2).
+An educational platform app created to manipulate students of an educational institution.
 
-[Try it on CodeSandbox](https://githubbox.com/heroui-inc/heroui/next-app-template)
+Link: https://react-student-app.onrender.com/
 
-## Technologies Used
+## Demo 📸
 
-- [Next.js 14](https://nextjs.org/docs/getting-started)
-- [HeroUI v2](https://heroui.com/)
-- [Tailwind CSS](https://tailwindcss.com/)
-- [Tailwind Variants](https://tailwind-variants.org)
-- [TypeScript](https://www.typescriptlang.org/)
-- [Framer Motion](https://www.framer.com/motion/)
-- [next-themes](https://github.com/pacocoursey/next-themes)
+<div align="center">
+  <div justify="space-around">
+    <img src="./github/mobile-ss-1.jpg" alt="mobile-login" hspace="10" height="425">
+    <img src="./github/mobile-ss-2.jpg" alt="mobile-dashboard" hspace="10" height="425">
+    <img src="./github/mobile-ss-3.jpg" alt="mobile-students" hspace="10" height="425">
+  </div>
 
-## How to Use
+---
 
-### Use the template with create-next-app
+  <p>
+    <img src="./github/app-ss-1.png" alt="app-dashboard" height="425">
+    <p>
+    <img src="./github/app-ss-2.png" alt="app-students" height="425">
+    <p>
+  </p>
+</div>
 
-To create a new project based on this template using `create-next-app`, run the following command:
+## 🚀 Technologies
+
+- Next.js
+- HeroUI v2
+- Tailwind CSS
+- Tailwind Variants
+- TypeScript
+- Framer Motion
+- Next-themes
+- Drizzle-orm
+- Postgres
+- Bcrypt-ts
+- Jsonwebtoken
+- Lucide-react
+- Resend
+- Eslint
+- Prettier
+
+## 📑 Features
+
+- \[x] Register Student
+- \[x] Search Students
+- \[x] Update Student
+- \[x] Delete Student
+- \[ ] Auth - Register
+- \[ ] Auth - Login with Google
+- \[x] Auth - Login (Credentials)
+
+### ✅ Requirements:
+>node: 20.x
+
+### Running the app
+
+- git clone https://github.com/lucasCicero1/react-student-app.git
 
 ```bash
-npx create-next-app -e https://github.com/heroui-inc/next-app-template
+$ cd react-student-app
+$ npm install
+$ npm run dev
 ```
 
-### Install dependencies
-
-You can use one of them `npm`, `yarn`, `pnpm`, `bun`, Example using `npm`:
-
-```bash
-npm install
-```
-
-### Run the development server
-
-```bash
-npm run dev
-```
-
-### Setup pnpm (optional)
-
-If you are using `pnpm`, you need to add the following code to your `.npmrc` file:
-
-```bash
-public-hoist-pattern[]=*@heroui/*
-```
-
-After modifying the `.npmrc` file, you need to run `pnpm install` again to ensure that the dependencies are installed correctly.
-
-## License
-
-Licensed under the [MIT license](https://github.com/heroui-inc/next-app-template/blob/main/LICENSE).
