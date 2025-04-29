@@ -70,7 +70,7 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="flex h-screen w-screen items-center justify-center">
+    <div className="scale-90 sm:scale-100 flex h-screen w-screen items-center justify-center">
       <div className="flex w-full max-w-sm flex-col gap-4 rounded-large bg-content1 px-8 pb-10 pt-6 shadow-small">
         <div className="flex flex-col gap-1">
           <h1 className="text-large font-medium">Sign in to your account</h1>

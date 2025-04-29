@@ -1,6 +1,13 @@
 "use client";
 
-import { Navbar as NavbarUI, NavbarContent, NavbarItem } from "@heroui/navbar";
+import {
+  Navbar as NavbarUI,
+  NavbarContent,
+  NavbarItem,
+  NavbarMenuToggle,
+  NavbarMenu,
+  NavbarMenuItem,
+} from "@heroui/navbar";
 import { Avatar } from "@heroui/avatar";
 import {
   Dropdown,
@@ -11,6 +18,8 @@ import {
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { signOut } from "next-auth/react";
+import React from "react";
+import { Link as LinkR } from "@heroui/react";
 
 import { ThemeSwitch } from "./theme-switch";
 
@@ -19,33 +28,71 @@ interface INavbarProps {
 }
 
 export function Navbar({ user }: INavbarProps) {
+  const [isMenuOpen, setIsMenuOpen] = React.useState<boolean>(false);
+
   const router = useRouter();
 
   return (
     <NavbarUI
       className="h-[60px] bg-slate-500 dark:bg-slate-900"
+      isMenuOpen={isMenuOpen}
       maxWidth="full"
+      onMenuOpenChange={setIsMenuOpen}
     >
+      <NavbarMenuToggle
+        aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+        className="sm:hidden"
+      />
       <NavbarContent
         className="hidden sm:flex gap-4 text-white"
         justify="center"
       >
-        <NavbarItem>
+        <NavbarItem className="hidden sm:block">
           <Link color="foreground" href="#">
             Features
           </Link>
         </NavbarItem>
-        <NavbarItem isActive>
+        <NavbarItem isActive className="hidden sm:block">
           <Link aria-current="page" color="secondary" href="#">
             Customers
           </Link>
         </NavbarItem>
-        <NavbarItem>
+        <NavbarItem className="hidden sm:block">
           <Link color="foreground" href="#">
             Integrations
           </Link>
         </NavbarItem>
       </NavbarContent>
+
+      <NavbarMenu className="w-[66%]">
+        <NavbarMenuItem>
+          <LinkR
+            color="foreground"
+            href="/"
+            onPress={() => setIsMenuOpen(false)}
+          >
+            Home
+          </LinkR>
+        </NavbarMenuItem>
+        <NavbarMenuItem>
+          <LinkR
+            color="foreground"
+            href="/students"
+            onPress={() => setIsMenuOpen(false)}
+          >
+            Students
+          </LinkR>
+        </NavbarMenuItem>
+        <NavbarMenuItem>
+          <LinkR
+            color="foreground"
+            href="#"
+            onPress={() => setIsMenuOpen(false)}
+          >
+            Profile
+          </LinkR>
+        </NavbarMenuItem>
+      </NavbarMenu>
 
       <NavbarContent as="div" justify="end">
         <div className="px-3">

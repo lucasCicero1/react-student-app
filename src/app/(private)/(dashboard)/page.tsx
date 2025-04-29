@@ -10,7 +10,7 @@ export default function Home() {
       </div>
       <section className="w-full h-[500px]">
         {/* <Chart chartData={quantityStudentsChartData} /> */}
-        <div className="grid w-full grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3">
+        <div className="grid w-full grid-cols-1 gap-5 sm:grid-cols-2 lg:gap-10 xl:grid-cols-3">
           <KpiStat
             change={"33%"}
             changeType={"positive"}
@@ -21,7 +21,7 @@ export default function Home() {
           />
         </div>
 
-        <div className="grid w-full grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3 my-5">
+        <div className="grid w-full grid-cols-1 gap-5 sm:grid-cols-2 my-5 lg:gap-10 lg:my-10 xl:grid-cols-3">
           <CircleChart
             categories={["Active", "Paused", "Vacation"]}
             chartData={[
