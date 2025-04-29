@@ -25,7 +25,7 @@ const menuItems = [
       {
         icon: <User height={25} width={25} />,
         label: "Profile",
-        href: "/profile",
+        href: "#",
         visible: ["admin", "student"],
       },
     ],
