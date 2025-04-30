@@ -80,6 +80,7 @@ export default function Table({
             ))}
           </div>
         ))}
+        <div>{children}</div>
       </div>
     </div>
   );
