@@ -101,19 +101,18 @@ export default function StudentPage() {
   // React.useMemo é recomendado quando o JSX depende de valores que mudam frequentemente, ex.: "filterValue"
   const topContentTable = React.useMemo(() => {
     return (
-      <div className="flex flex-col gap-4">
-        <div className="flex justify-between gap-3 flex-col sm:flex-row sm:items-end">
-          <InputSearch
-            filterValue={filterValue}
-            placeholder={"Search by name and email..."}
-            onClear={onClear}
-            onSearchChange={onSearchChange}
-          />
-          <div className="flex gap-3">
-            <Button color="primary" endContent={<PlusIcon />} onPress={addNew}>
-              Add New
-            </Button>
-          </div>
+      <div className="flex flex-col-reverse gap-4 sm:flex-row sm:items-end md:gap-3 md:justify-between">
+        <InputSearch
+          filterValue={filterValue}
+          placeholder={"Search by name and email..."}
+          onClear={onClear}
+          onSearchChange={onSearchChange}
+        />
+
+        <div className="flex gap-3 self-end">
+          <Button color="primary" endContent={<PlusIcon />} onPress={addNew}>
+            Add New
+          </Button>
         </div>
       </div>
     );
