@@ -8,7 +8,7 @@ export default function Home() {
       <div className={subtitle({ class: "my-8 tracking-wider" })}>
         Performance Report
       </div>
-      <section className="w-full h-[500px]">
+      <section className="w-full sm:h-[500px]">
         {/* <Chart chartData={quantityStudentsChartData} /> */}
         <div className="grid w-full grid-cols-1 gap-5 sm:grid-cols-2 lg:gap-10 xl:grid-cols-3">
           <KpiStat

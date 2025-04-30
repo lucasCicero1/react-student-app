@@ -61,6 +61,9 @@ export default function Table({
 
       {/* Mobile Table */}
       <div className="md:hidden flex flex-col gap-4">
+        <div className="bg-white dark:bg-slate-700 h-30 p-3 rounded-lg border dark:border-default-100">
+          {topContent}
+        </div>
         {data.map((item) => (
           <div
             key={item.id}
@@ -77,6 +80,7 @@ export default function Table({
             ))}
           </div>
         ))}
+        <div>{children}</div>
       </div>
     </div>
   );

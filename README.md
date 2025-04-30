@@ -32,6 +32,7 @@ Link: https://react-student-app.onrender.com/
 - TypeScript
 - Framer Motion
 - Next-themes
+- Next-auth
 - Drizzle-orm
 - Postgres
 - Bcrypt-ts

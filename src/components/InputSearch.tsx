@@ -18,7 +18,7 @@ export function InputSearch({
   return (
     <Input
       isClearable
-      className="w-full sm:max-w-[44%]"
+      className="w-full md:max-w-[44%]"
       classNames={{
         input:
           "text-small focus:outline-none border-transparent focus:border-transparent focus:ring-0",
