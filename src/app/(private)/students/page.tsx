@@ -27,6 +27,8 @@ import {
   getStudents,
   updateStudent,
 } from "@/src/lib/api/studentsApi";
+import { studentSchema } from "@/src/lib/validators/student.schema";
+import { ErrorToast, SuccessToast } from "@/src/components/Toast";
 
 export default function StudentPage() {
   const renderCell = React.useCallback((user: IUser, columnKey: React.Key) => {
@@ -169,11 +171,38 @@ export default function StudentPage() {
           onSave={() => {
             return {
               "Create Student": async () => {
-                const createFormData = createFormRef.current?.getFormData();
+                try {
+                  const createFormData = createFormRef.current?.getFormData();
+                  const parsed = studentSchema.safeParse(createFormData);
 
-                if (createFormData) {
-                  await createStudent(createFormData);
-                  queryClient.invalidateQueries({ queryKey: ["students"] });
+                  if (!parsed.success) {
+                    const errorMessages = parsed.error.errors
+                      .map((e) => e.message)
+                      .join("\n");
+
+                    ErrorToast({
+                      title: errorMessages,
+                      description: "Validation error",
+                    });
+
+                    return;
+                  }
+
+                  await createStudent(parsed.data);
+                  await queryClient.invalidateQueries({
+                    queryKey: ["students"],
+                  });
+
+                  SuccessToast({
+                    title: "Student created successfully!",
+                    description: "Ok",
+                  });
+                } catch (error) {
+                  console.error("Create Student Error:", error);
+                  ErrorToast({
+                    title: "Something went wrong while creating the student.",
+                    description: "Error",
+                  });
                 }
               },
               "Update Student": async () => {
