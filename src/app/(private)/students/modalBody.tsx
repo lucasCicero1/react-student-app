@@ -242,6 +242,7 @@ export const ModalBodyUpdate = forwardRef<ModalBodyUpdateHandle, { data: any }>(
           onValueChange={setEmail}
         />
         <Input
+          isDisabled
           classNames={{
             input:
               "text-small focus:outline-none border-transparent focus:border-transparent focus:ring-0 p-0",

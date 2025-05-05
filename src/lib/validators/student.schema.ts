@@ -9,3 +9,7 @@ export const studentSchema = z.object({
 });
 
 export type StudentFormData = z.infer<typeof studentSchema>;
+
+export const studentDeleteSchema = studentSchema.pick({ cpf: true });
+
+export type StudentDeleteFormData = z.infer<typeof studentDeleteSchema>;

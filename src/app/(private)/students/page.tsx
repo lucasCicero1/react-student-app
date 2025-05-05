@@ -27,7 +27,10 @@ import {
   getStudents,
   updateStudent,
 } from "@/src/lib/api/studentsApi";
-import { studentSchema } from "@/src/lib/validators/student.schema";
+import {
+  studentDeleteSchema,
+  studentSchema,
+} from "@/src/lib/validators/student.schema";
 import { ErrorToast, SuccessToast } from "@/src/components/Toast";
 
 export default function StudentPage() {
@@ -206,19 +209,69 @@ export default function StudentPage() {
                 }
               },
               "Update Student": async () => {
-                const updateFormData = updateFormRef.current?.getFormData();
+                try {
+                  const updateFormData = updateFormRef.current?.getFormData();
+                  const parsed = studentSchema.safeParse(updateFormData);
 
-                if (updateFormData) {
-                  await updateStudent(updateFormData);
+                  if (!parsed.success) {
+                    const errorMessages = parsed.error.errors
+                      .map((e) => e.message)
+                      .join("\n");
+
+                    ErrorToast({
+                      title: errorMessages,
+                      description: "Validation error",
+                    });
+
+                    return;
+                  }
+
+                  await updateStudent(parsed.data);
                   queryClient.invalidateQueries({ queryKey: ["students"] });
+
+                  SuccessToast({
+                    title: "Student updated successfully!",
+                    description: "Ok",
+                  });
+                } catch (error) {
+                  console.error("Update Student Error:", error);
+                  ErrorToast({
+                    title: "Something went wrong while updating the student.",
+                    description: "Error",
+                  });
                 }
               },
               "Delete Student": async () => {
-                const deleteFormData = deleteFormRef.current?.getFormData();
+                try {
+                  const deleteFormData = deleteFormRef.current?.getFormData();
+                  const parsed = studentDeleteSchema.safeParse(deleteFormData);
 
-                if (deleteFormData) {
-                  await deleteStudent(deleteFormData);
+                  if (!parsed.success) {
+                    const errorMessages = parsed.error.errors
+                      .map((e) => e.message)
+                      .join("\n");
+
+                    ErrorToast({
+                      title: errorMessages,
+                      description: "Validation error",
+                    });
+
+                    return;
+                  }
+
+                  await deleteStudent(parsed.data);
                   queryClient.invalidateQueries({ queryKey: ["students"] });
+
+                  SuccessToast({
+                    title: "Student deleted successfully!",
+                    description: "Ok",
+                  });
+                } catch (error) {
+                  console.error("Delete Student Error:", error);
+                  ErrorToast({
+                    title: "Something went wrong while deleting the student.",
+                    description: "Error",
+                  });
                 }
               },
             }[whichModal]!();
