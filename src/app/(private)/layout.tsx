@@ -14,6 +14,7 @@ import { Navbar } from "@/src/components/Navbar";
 import { siteConfig } from "@/src/config/site";
 import { fontSans } from "@/src/config/fonts";
 import { ReactQueryProvider } from "@/src/providers/ReactQueryProvider";
+import ToastProviders from "@/src/providers/toastProvider";
 
 export const metadata: Metadata = {
   title: {
@@ -77,7 +78,7 @@ export default async function PrivateLayout({
             <div className="w-[100%] md:w-[92%] lg:w-[84%] xl:w-[86%] bg-slate-100 dark:bg-slate-800 dark:border-l-1 border-transparent dark:border-default-300 overflow-y-scroll">
               <Navbar user={session?.user?.name} />
               <div className="flex-1 mx-6 sm:mx-12 md:mx-16 lg:mx-20 xl:mx-24">
-                {children}
+                <ToastProviders>{children}</ToastProviders>
               </div>
             </div>
           </div>
