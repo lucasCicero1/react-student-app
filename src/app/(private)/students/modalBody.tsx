@@ -59,6 +59,7 @@ export const ModalBodyCreate = forwardRef<CreateFormRef>((_, ref) => {
       />
       <Input
         ref={nameInputRef}
+        isRequired
         classNames={{
           input:
             "text-small focus:outline-none border-transparent focus:border-transparent focus:ring-0 p-0",
@@ -68,10 +69,14 @@ export const ModalBodyCreate = forwardRef<CreateFormRef>((_, ref) => {
         }
         label="Name"
         placeholder="Enter your name"
+        validate={(value: string) => {
+          if (value.length < 3) return "Name must be 3 characters long";
+        }}
         variant="bordered"
       />
       <Input
         ref={emailInputRef}
+        isRequired
         classNames={{
           input:
             "text-small focus:outline-none border-transparent focus:border-transparent focus:ring-0 p-0",
@@ -81,10 +86,12 @@ export const ModalBodyCreate = forwardRef<CreateFormRef>((_, ref) => {
         }
         label="Email"
         placeholder="Enter your email"
+        type="email"
         variant="bordered"
       />
       <Input
         ref={cpfInputRef}
+        isRequired
         classNames={{
           input:
             "text-small focus:outline-none border-transparent focus:border-transparent focus:ring-0 p-0",
@@ -93,16 +100,22 @@ export const ModalBodyCreate = forwardRef<CreateFormRef>((_, ref) => {
           <IdCard className="text-2xl text-default-400 pointer-events-none flex-shrink-0" />
         }
         label="CPF"
+        maxLength={11}
         placeholder="Enter your cpf"
+        validate={(value: string) => {
+          if (value.length < 11) return "CPF must be 11 characters long";
+        }}
         variant="bordered"
       />
       <Select
         ref={statusValueRef}
+        isRequired
         classNames={{
           label: "group-data-[filled=true]:-translate-y-3.5",
           trigger: "max-w-[10rem]",
           listboxWrapper: "max-h-[400px]",
         }}
+        errorMessage="Invalid status"
         items={status}
         label="Status"
         placeholder="Select an status"
