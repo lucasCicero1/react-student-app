@@ -13,6 +13,7 @@ interface IModalProps {
   header: string;
   body: React.JSX.Element;
   onSave?: () => void;
+  isSaveDisabled?: boolean;
 }
 
 export function Modal({
@@ -21,6 +22,7 @@ export function Modal({
   header,
   body,
   onSave,
+  isSaveDisabled,
 }: Readonly<IModalProps>) {
   return (
     <ModalUI
@@ -44,6 +46,7 @@ export function Modal({
               </Button>
               <Button
                 color="primary"
+                isDisabled={!isSaveDisabled}
                 onPress={() => {
                   onSave?.();
                   onClose();

@@ -62,7 +62,8 @@ export default function StudentPage() {
   const [isLoading, setIsLoading] = React.useState<boolean>(true);
   const [isModalOpen, setIsModalOpen] = React.useState<boolean>(false);
   const [whichModal, setWhichModal] = React.useState<string>("");
-  const [editedUser, setEditedUser] = React.useState<object>({});
+  const [editedUser, setEditedUser] = React.useState<Partial<IUser>>({});
+  const [isSaveDisabled, setIsSaveDisabled] = React.useState<boolean>(false);
 
   const searchFields = ["name", "email"] as const;
 
@@ -129,15 +130,53 @@ export default function StudentPage() {
 
   const getModalBody = (modalDescription: string): React.JSX.Element => {
     return {
-      "Create Student": <ModalBodyCreate ref={createFormRef} />,
+      "Create Student": (
+        <ModalBodyCreate ref={createFormRef} onChange={checkRequiredFields} />
+      ),
       "Update Student": (
-        <ModalBodyUpdate ref={updateFormRef} data={editedUser} />
+        <ModalBodyUpdate
+          ref={updateFormRef}
+          data={editedUser}
+          onChange={checkRequiredFields}
+        />
       ),
       "Delete Student": (
         <ModalBodyDelete ref={deleteFormRef} data={editedUser} />
       ),
     }[modalDescription]!;
   };
+
+  const checkRequiredFields = () => {
+    const data =
+      whichModal === "Create Student"
+        ? createFormRef.current?.getFormData()
+        : updateFormRef.current?.getFormData();
+
+    const isValid =
+      !!data?.name &&
+      data.name.length >= 3 &&
+      !!data?.email &&
+      !!data?.cpf &&
+      data.cpf.length === 11 &&
+      !!data?.status;
+
+    setIsSaveDisabled(isValid);
+  };
+
+  React.useEffect(() => {
+    if (isModalOpen) {
+      setIsSaveDisabled(false);
+
+      if (
+        editedUser?.name &&
+        editedUser?.email &&
+        editedUser?.cpf &&
+        editedUser?.status
+      ) {
+        if (whichModal !== "Create Student") setIsSaveDisabled(true);
+      }
+    }
+  }, [isModalOpen, editedUser, whichModal]);
 
   const queryClient = useQueryClient();
 
@@ -170,6 +209,7 @@ export default function StudentPage() {
           body={getModalBody(whichModal)}
           header={whichModal}
           isOpen={isModalOpen}
+          isSaveDisabled={isSaveDisabled}
           onOpenChange={setIsModalOpen}
           onSave={() => {
             return {
@@ -190,7 +230,6 @@ export default function StudentPage() {
 
                     return;
                   }
-
                   await createStudent(parsed.data);
                   await queryClient.invalidateQueries({
                     queryKey: ["students"],
