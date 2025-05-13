@@ -11,5 +11,5 @@ export interface User {
   ra: number;
   cpf: string;
   status: string;
-  avatar: string;
+  avatar?: string;
 }

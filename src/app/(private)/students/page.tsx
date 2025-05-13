@@ -27,6 +27,11 @@ import {
   getStudents,
   updateStudent,
 } from "@/src/lib/api/studentsApi";
+import {
+  studentDeleteSchema,
+  studentSchema,
+} from "@/src/lib/validators/student.schema";
+import { ErrorToast, SuccessToast } from "@/src/components/Toast";
 
 export default function StudentPage() {
   const renderCell = React.useCallback((user: IUser, columnKey: React.Key) => {
@@ -57,7 +62,8 @@ export default function StudentPage() {
   const [isLoading, setIsLoading] = React.useState<boolean>(true);
   const [isModalOpen, setIsModalOpen] = React.useState<boolean>(false);
   const [whichModal, setWhichModal] = React.useState<string>("");
-  const [editedUser, setEditedUser] = React.useState<object>({});
+  const [editedUser, setEditedUser] = React.useState<Partial<IUser>>({});
+  const [isSaveDisabled, setIsSaveDisabled] = React.useState<boolean>(false);
 
   const searchFields = ["name", "email"] as const;
 
@@ -124,15 +130,53 @@ export default function StudentPage() {
 
   const getModalBody = (modalDescription: string): React.JSX.Element => {
     return {
-      "Create Student": <ModalBodyCreate ref={createFormRef} />,
+      "Create Student": (
+        <ModalBodyCreate ref={createFormRef} onChange={checkRequiredFields} />
+      ),
       "Update Student": (
-        <ModalBodyUpdate ref={updateFormRef} data={editedUser} />
+        <ModalBodyUpdate
+          ref={updateFormRef}
+          data={editedUser}
+          onChange={checkRequiredFields}
+        />
       ),
       "Delete Student": (
         <ModalBodyDelete ref={deleteFormRef} data={editedUser} />
       ),
     }[modalDescription]!;
   };
+
+  const checkRequiredFields = () => {
+    const data =
+      whichModal === "Create Student"
+        ? createFormRef.current?.getFormData()
+        : updateFormRef.current?.getFormData();
+
+    const isValid =
+      !!data?.name &&
+      data.name.length >= 3 &&
+      !!data?.email &&
+      !!data?.cpf &&
+      data.cpf.length === 11 &&
+      !!data?.status;
+
+    setIsSaveDisabled(isValid);
+  };
+
+  React.useEffect(() => {
+    if (isModalOpen) {
+      setIsSaveDisabled(false);
+
+      if (
+        editedUser?.name &&
+        editedUser?.email &&
+        editedUser?.cpf &&
+        editedUser?.status
+      ) {
+        if (whichModal !== "Create Student") setIsSaveDisabled(true);
+      }
+    }
+  }, [isModalOpen, editedUser, whichModal]);
 
   const queryClient = useQueryClient();
 
@@ -165,31 +209,108 @@ export default function StudentPage() {
           body={getModalBody(whichModal)}
           header={whichModal}
           isOpen={isModalOpen}
+          isSaveDisabled={isSaveDisabled}
           onOpenChange={setIsModalOpen}
           onSave={() => {
             return {
               "Create Student": async () => {
-                const createFormData = createFormRef.current?.getFormData();
+                try {
+                  const createFormData = createFormRef.current?.getFormData();
+                  const parsed = studentSchema.safeParse(createFormData);
 
-                if (createFormData) {
-                  await createStudent(createFormData);
-                  queryClient.invalidateQueries({ queryKey: ["students"] });
+                  if (!parsed.success) {
+                    const errorMessages = parsed.error.errors
+                      .map((e) => e.message)
+                      .join("\n");
+
+                    ErrorToast({
+                      title: errorMessages,
+                      description: "Validation error",
+                    });
+
+                    return;
+                  }
+                  await createStudent(parsed.data);
+                  await queryClient.invalidateQueries({
+                    queryKey: ["students"],
+                  });
+
+                  SuccessToast({
+                    title: "Student created successfully!",
+                    description: "Ok",
+                  });
+                } catch (error) {
+                  console.error("Create Student Error:", error);
+                  ErrorToast({
+                    title: "Something went wrong while creating the student.",
+                    description: "Error",
+                  });
                 }
               },
               "Update Student": async () => {
-                const updateFormData = updateFormRef.current?.getFormData();
+                try {
+                  const updateFormData = updateFormRef.current?.getFormData();
+                  const parsed = studentSchema.safeParse(updateFormData);
 
-                if (updateFormData) {
-                  await updateStudent(updateFormData);
+                  if (!parsed.success) {
+                    const errorMessages = parsed.error.errors
+                      .map((e) => e.message)
+                      .join("\n");
+
+                    ErrorToast({
+                      title: errorMessages,
+                      description: "Validation error",
+                    });
+
+                    return;
+                  }
+
+                  await updateStudent(parsed.data);
                   queryClient.invalidateQueries({ queryKey: ["students"] });
+
+                  SuccessToast({
+                    title: "Student updated successfully!",
+                    description: "Ok",
+                  });
+                } catch (error) {
+                  console.error("Update Student Error:", error);
+                  ErrorToast({
+                    title: "Something went wrong while updating the student.",
+                    description: "Error",
+                  });
                 }
               },
               "Delete Student": async () => {
-                const deleteFormData = deleteFormRef.current?.getFormData();
+                try {
+                  const deleteFormData = deleteFormRef.current?.getFormData();
+                  const parsed = studentDeleteSchema.safeParse(deleteFormData);
 
-                if (deleteFormData) {
-                  await deleteStudent(deleteFormData);
+                  if (!parsed.success) {
+                    const errorMessages = parsed.error.errors
+                      .map((e) => e.message)
+                      .join("\n");
+
+                    ErrorToast({
+                      title: errorMessages,
+                      description: "Validation error",
+                    });
+
+                    return;
+                  }
+
+                  await deleteStudent(parsed.data);
                   queryClient.invalidateQueries({ queryKey: ["students"] });
+
+                  SuccessToast({
+                    title: "Student deleted successfully!",
+                    description: "Ok",
+                  });
+                } catch (error) {
+                  console.error("Delete Student Error:", error);
+                  ErrorToast({
+                    title: "Something went wrong while deleting the student.",
+                    description: "Error",
+                  });
                 }
               },
             }[whichModal]!();
