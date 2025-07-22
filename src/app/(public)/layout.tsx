@@ -47,7 +47,7 @@ export default async function PublicLayout({
       )}
     >
       <div className="h-screen flex flex-col">
-        <div className="p-5 px-10 absolute right-0">
+        <div className="p-5 px-10 flex justify-end">
           <ThemeSwitch />
         </div>
         <div className=" bg-slate-100 dark:bg-slate-700 overflow-hidden">
