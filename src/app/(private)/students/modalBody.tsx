@@ -50,7 +50,7 @@ export const ModalBodyCreate = forwardRef<
             "text-small focus:outline-none border-transparent focus:border-transparent focus:ring-0 p-0",
         }}
         endContent={
-          <CircleUser className="text-2xl text-default-400 pointer-events-none flex-shrink-0" />
+          <CircleUser className="text-2xl text-default-400 pointer-events-none shrink-0" />
         }
         label="Avatar"
         placeholder="Enter your avatar url"
@@ -70,7 +70,7 @@ export const ModalBodyCreate = forwardRef<
             "text-small focus:outline-none border-transparent focus:border-transparent focus:ring-0 p-0",
         }}
         endContent={
-          <UserIcon className="text-2xl text-default-400 pointer-events-none flex-shrink-0" />
+          <UserIcon className="text-2xl text-default-400 pointer-events-none shrink-0" />
         }
         label="Name"
         placeholder="Enter your name"
@@ -88,7 +88,7 @@ export const ModalBodyCreate = forwardRef<
             "text-small focus:outline-none border-transparent focus:border-transparent focus:ring-0 p-0",
         }}
         endContent={
-          <MailIcon className="text-2xl text-default-400 pointer-events-none flex-shrink-0" />
+          <MailIcon className="text-2xl text-default-400 pointer-events-none shrink-0" />
         }
         label="Email"
         placeholder="Enter your email"
@@ -104,7 +104,7 @@ export const ModalBodyCreate = forwardRef<
             "text-small focus:outline-none border-transparent focus:border-transparent focus:ring-0 p-0",
         }}
         endContent={
-          <IdCard className="text-2xl text-default-400 pointer-events-none flex-shrink-0" />
+          <IdCard className="text-2xl text-default-400 pointer-events-none shrink-0" />
         }
         label="CPF"
         maxLength={11}
@@ -120,7 +120,7 @@ export const ModalBodyCreate = forwardRef<
         isRequired
         classNames={{
           label: "group-data-[filled=true]:-translate-y-3.5",
-          trigger: "max-w-[10rem]",
+          trigger: "max-w-40",
           listboxWrapper: "max-h-[400px]",
         }}
         errorMessage="Invalid status"
@@ -228,7 +228,7 @@ export const ModalBodyUpdate = forwardRef<
         }}
         defaultValue={avatar}
         endContent={
-          <CircleUser className="text-2xl text-default-400 pointer-events-none flex-shrink-0" />
+          <CircleUser className="text-2xl text-default-400 pointer-events-none shrink-0" />
         }
         label="Avatar"
         placeholder="Enter your avatar url"
@@ -244,7 +244,7 @@ export const ModalBodyUpdate = forwardRef<
         }}
         defaultValue={name}
         endContent={
-          <UserIcon className="text-2xl text-default-400 pointer-events-none flex-shrink-0" />
+          <UserIcon className="text-2xl text-default-400 pointer-events-none shrink-0" />
         }
         label="Name"
         placeholder="Enter your name"
@@ -259,7 +259,7 @@ export const ModalBodyUpdate = forwardRef<
         }}
         defaultValue={email}
         endContent={
-          <MailIcon className="text-2xl text-default-400 pointer-events-none flex-shrink-0" />
+          <MailIcon className="text-2xl text-default-400 pointer-events-none shrink-0" />
         }
         label="Email"
         placeholder="Enter your email"
@@ -279,7 +279,7 @@ export const ModalBodyUpdate = forwardRef<
         }}
         defaultValue={cpf}
         endContent={
-          <IdCard className="text-2xl text-default-400 pointer-events-none flex-shrink-0" />
+          <IdCard className="text-2xl text-default-400 pointer-events-none shrink-0" />
         }
         label="Cpf"
         placeholder="Enter your cpf"
@@ -290,7 +290,7 @@ export const ModalBodyUpdate = forwardRef<
         isRequired
         classNames={{
           label: "group-data-[filled=true]:-translate-y-3.5",
-          trigger: "max-w-[10rem]",
+          trigger: "max-w-40",
           listboxWrapper: "max-h-[400px]",
         }}
         defaultSelectedKeys={[statusValue]}
