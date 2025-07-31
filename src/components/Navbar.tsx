@@ -104,7 +104,7 @@ export function Navbar({ user }: INavbarProps) {
             <Avatar
               isBordered
               as="button"
-              className="transition-transform"
+              className="transition-transform cursor-pointer"
               color="secondary"
               name="Jason Hughes"
               size="sm"

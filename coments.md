@@ -30,3 +30,19 @@
 2- Filtra os estudantes antes da paginação.
 
 3- Atualiza a paginação sempre que os itens filtrados mudam.
+
+
+### Layout
+* O arquivo layout.tsx recebe "children", "children" é o arquivo page.tsx
+
+### "use server" e "use client"
+* Não é possível rodar um componente "use client" em um componente sem a flag ou "use server" (mesma coisa)
+* É possível rodar um componente "use server" em um componente "use client"
+
+
+### React Query
+* Recomendado quando na tela pode ter MUIIIITAAA interação do usuário
+
+### App tipo dashboard (não recebe muitas visitas) e Ecommerce (muitas visitas)
+* (Dashboard) Pode fazer mais uso de Cliente component, React Query...
+* (Ecommerce) Usar mais Server component e usar o máximo de cache do Nextjs

@@ -219,7 +219,7 @@ export default function StudentPage() {
                   const parsed = studentSchema.safeParse(createFormData);
 
                   if (!parsed.success) {
-                    const errorMessages = parsed.error.errors
+                    const errorMessages = parsed.error.issues
                       .map((e) => e.message)
                       .join("\n");
 
@@ -253,7 +253,7 @@ export default function StudentPage() {
                   const parsed = studentSchema.safeParse(updateFormData);
 
                   if (!parsed.success) {
-                    const errorMessages = parsed.error.errors
+                    const errorMessages = parsed.error.issues
                       .map((e) => e.message)
                       .join("\n");
 
@@ -286,7 +286,7 @@ export default function StudentPage() {
                   const parsed = studentDeleteSchema.safeParse(deleteFormData);
 
                   if (!parsed.success) {
-                    const errorMessages = parsed.error.errors
+                    const errorMessages = parsed.error.issues
                       .map((e) => e.message)
                       .join("\n");
 

@@ -75,7 +75,7 @@ export default async function PrivateLayout({
 
             {/* RIGHT */}
             {/* w-[86%] */}
-            <div className="w-[100%] md:w-[92%] lg:w-[84%] xl:w-[86%] bg-slate-100 dark:bg-slate-800 dark:border-l-1 border-transparent dark:border-default-300 overflow-y-scroll">
+            <div className="w-full md:w-[92%] lg:w-[84%] xl:w-[86%] bg-slate-100 dark:bg-slate-800 dark:border-l border-transparent dark:border-default-300 overflow-y-scroll">
               <Navbar user={session?.user?.name} />
               <div className="flex-1 mx-6 sm:mx-12 md:mx-16 lg:mx-20 xl:mx-24">
                 <ToastProviders>{children}</ToastProviders>
