@@ -58,7 +58,7 @@ export default function CircleChart({
                 aria-label="Time Range"
                 classNames={{
                   trigger: "min-w-[100px] min-h-7 h-7",
-                  value: "text-tiny !text-default-500",
+                  value: "text-tiny text-default-500!",
                   selectorIcon: "text-default-500",
                   popoverContent: "min-w-[120px]",
                 }}
@@ -112,7 +112,7 @@ export default function CircleChart({
             >
               <Tooltip
                 content={({ label, payload }) => (
-                  <div className="flex h-8 min-w-[120px] items-center gap-x-2 rounded-medium bg-background px-1 text-tiny shadow-small">
+                  <div className="flex h-8 min-w-[120px] items-center gap-x-2 rounded-medium bg-background px-1 text-tiny shadow-sm">
                     <span className="font-medium text-foreground">{label}</span>
                     {payload?.map((p, index) => {
                       const name = p.name;
