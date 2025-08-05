@@ -182,7 +182,8 @@ export default function StudentPage() {
 
   return (
     <div>
-      <div className={subtitle({ class: "my-8 tracking-wider" })}>Students</div>
+      {/* <div className={subtitle({ class: "my-8 tracking-wider" })}>Students</div> */}
+      <div className="my-8 tracking-wider text-lg lg:text-xl text-default-600">Students</div>
       <section className="w-full">
         {isLoading ? (
           <Spinner
