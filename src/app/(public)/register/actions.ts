@@ -47,7 +47,6 @@ export async function sendEmailConfirmation(
           `,
     });
   } catch (error) {
-    // eslint-disable-next-line no-console
     console.error(error);
   }
 }

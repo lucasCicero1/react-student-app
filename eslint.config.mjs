@@ -31,7 +31,11 @@ export default [
   {
     rules: {
       "@typescript-eslint/no-namespace": "off",
-      "no-console": "warn",
+      "@typescript-eslint/no-non-null-assertion": "off",
+      "@typescript-eslint/no-explicit-any": "off",
+      "@typescript-eslint/ban-types": "off",
+      "@typescript-eslint/no-extraneous-class": "off",
+      // "no-console": "warn",
       "prettier/prettier": "warn",
       // "prettier/prettier": "error",
       "no-unused-vars": "off",

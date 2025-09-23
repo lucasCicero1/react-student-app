@@ -10,7 +10,7 @@ import { CircleUser, IdCard, User as UserIcon } from "lucide-react";
 import { MailIcon } from "@/src/config/icons";
 import { User as IUser } from "@/src/types";
 
-export type CreateFormRef = {
+export interface CreateFormRef {
   getFormData: () => {
     avatar: string;
     name: string;
@@ -18,7 +18,7 @@ export type CreateFormRef = {
     cpf: string;
     status: string;
   };
-};
+}
 
 export const ModalBodyCreate = forwardRef<
   CreateFormRef,
@@ -180,7 +180,7 @@ const status = [
   { key: 3, status: "vacation", color: "warning" },
 ];
 
-export type ModalBodyUpdateHandle = {
+export interface ModalBodyUpdateHandle {
   getFormData: () => {
     name: string;
     email: string;
@@ -188,7 +188,7 @@ export type ModalBodyUpdateHandle = {
     status: string;
     avatar?: string;
   };
-};
+}
 
 interface ModalBodyUpdateProps {
   onChange?: () => void;
