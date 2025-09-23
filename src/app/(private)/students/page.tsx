@@ -14,7 +14,6 @@ import {
   ModalBodyUpdateHandle,
 } from "./modalBody";
 
-import { subtitle } from "@/src/components/primitives";
 import Table from "@/src/components/Table";
 import { PlusIcon } from "@/src/config/icons";
 import { User as IUser } from "@/src/types";
@@ -183,7 +182,9 @@ export default function StudentPage() {
   return (
     <div>
       {/* <div className={subtitle({ class: "my-8 tracking-wider" })}>Students</div> */}
-      <div className="my-8 tracking-wider text-lg lg:text-xl text-default-600">Students</div>
+      <div className="my-8 tracking-wider text-lg lg:text-xl text-default-600">
+        Students
+      </div>
       <section className="w-full">
         {isLoading ? (
           <Spinner

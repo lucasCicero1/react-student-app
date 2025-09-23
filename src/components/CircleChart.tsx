@@ -17,17 +17,17 @@ import {
 } from "@heroui/react";
 import { Icon } from "@iconify/react";
 
-type ChartData = {
+interface ChartData {
   name: string;
   [key: string]: string | number;
-};
+}
 
-type CircleChartProps = {
+interface CircleChartProps {
   title: string;
   color: ButtonProps["color"];
   categories: string[];
   chartData: ChartData[];
-};
+}
 
 const formatTotal = (total: number) => {
   return total >= 1000 ? `${(total / 1000).toFixed(1)}K` : total;
